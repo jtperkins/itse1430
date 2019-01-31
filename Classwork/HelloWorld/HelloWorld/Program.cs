@@ -3,6 +3,7 @@
  * Taylor Perkins
  */
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,6 +61,8 @@ namespace HelloWorld
             Console.WriteLine("Publisher: " + publisher);
             Console.WriteLine("Owned? " + owned);
             Console.WriteLine("Completed? " + completed);
+            ArrayList myList = new ArrayList();
+            
         }
 
         private static bool ReadBoolean( string message )
@@ -93,7 +96,8 @@ namespace HelloWorld
 
             return 0;
         }
-
+        
+       
         private static string name;
         private static string publisher;
         private static decimal price;
