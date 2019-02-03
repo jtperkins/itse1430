@@ -100,31 +100,31 @@ namespace PizzaCreator
         public void displayOrder()
         {
             //TODO: Format pricing on displayOrder()
-            Console.WriteLine(size + " pizza\t\t$" + sizePrice(size));
+            Console.WriteLine("{0} pizza\t\t{1:C}", size, sizePrice(size));
             if (delivery.ToLower().CompareTo("take out") == 0)
             {
                 Console.WriteLine(delivery);
             }
             else
             {
-                Console.WriteLine(delivery + "\t\t$" + deliveryPrice(delivery));
+                Console.WriteLine("{0}\t\t{1:C}", delivery, deliveryPrice(delivery));
             }
             Console.WriteLine("Meats");
             foreach (string meat in meats)
             {
                 if (meat.ToLower().CompareTo("pepperoni") == 0)
-                    Console.WriteLine("\t" + meat + "\t$0.75");
+                    Console.WriteLine("\t{0}\t{1:C}", meat, .75);
                 else
-                    Console.WriteLine("\t" + meat + "\t\t$0.75");
+                    Console.WriteLine("\t{0}\t\t{1:C}", meat, .75);
                 
             }
             Console.WriteLine("Vegetables");
             foreach (string veg in vegetables)
             {
                 if (veg.ToLower().CompareTo("mushrooms") == 0 || veg.ToLower().CompareTo("black olives") == 0)
-                    Console.WriteLine("\t" + veg + "\t$0.50");
+                    Console.WriteLine("\t{0}\t{1:C}", veg, .50);
                 else
-                    Console.WriteLine("\t" + veg + "\t\t$0.50");
+                    Console.WriteLine("\t{0}\t\t{1:C}", veg, .50);
             }
             Console.WriteLine("Sauce");
             if (sauce.ToLower() == "traditional")
@@ -133,14 +133,14 @@ namespace PizzaCreator
             }
             else
             {
-                Console.WriteLine("\t" + sauce + "\t\t$" + saucePrice(sauce));
+                Console.WriteLine("\t{0}\t\t{1:C}", sauce, saucePrice(sauce));
             }
             for (int i = 0; i < 30; i++)
             {
                 Console.Write("-");
             }
             Console.WriteLine("");
-            Console.WriteLine("Total" + "\t\t\t$" + totalPrice());
+            Console.WriteLine("Total\t\t\t{0:C}", totalPrice());
         }
     }
 
