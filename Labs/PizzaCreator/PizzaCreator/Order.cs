@@ -15,6 +15,8 @@ namespace PizzaCreator
         public string sauce;
         public string cheese;
         public string delivery;
+        private bool hasOrdered;
+        
         
         //private double small = 5;
         //private double medium = 6.25;
@@ -31,7 +33,7 @@ namespace PizzaCreator
 
         public Order()
         {
-
+            hasOrdered = false;
         }
 
         public Order(string size, ArrayList meats, ArrayList vegetables, string sauce, string cheese, string delivery)
@@ -42,6 +44,33 @@ namespace PizzaCreator
             this.sauce = sauce;
             this.cheese = cheese;
             this.delivery = delivery;
+            hasOrdered = true;
+        }
+
+        public void NewOrder()
+        {
+            if (!hasOrdered)
+            {
+                Console.Clear();
+                GetOrder();
+                Console.Clear();
+            } else
+            {
+                string choice;
+                Console.WriteLine("");
+                Console.WriteLine("An order is already created, would you like to start over? (Y/N) ");
+                switch (choice = Console.ReadLine().ToLower())
+                {
+                    case "y":
+                    this.hasOrdered = false;
+                    NewOrder();
+                    break;
+                    case "n":
+                    Console.Clear();
+                    //Menu.DisplayMenu();
+                    break;
+                }
+            }
         }
 
         public double sizePrice(string size)
@@ -141,6 +170,63 @@ namespace PizzaCreator
             }
             Console.WriteLine("");
             Console.WriteLine("Total\t\t\t{0:C}", totalPrice());
+        }
+
+        public bool madeOrder()
+        {
+            return hasOrdered;
+        }
+
+        public void GetOrder()
+        {
+            string size;
+            ArrayList meats = new ArrayList();
+            ArrayList vegetables = new ArrayList();
+            string sauce;
+            string cheese;
+            string delivery;
+
+            size = Menu.getSize();
+            //meats = Menu.getMeats(meats);
+            //vegetables = Menu.getVegetables(vegetables);
+            //sauce = Menu.getSauce();
+            //cheese = Menu.getCheese();
+            //delivery = Menu.getDelivery();
+
+            //debugging purposes
+            //foreach (var item in meats)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //foreach (var item in vegetables)
+            //{
+            //    Console.WriteLine(item);
+            //}
+
+            //order = new Order(size, meats, vegetables, sauce, cheese, delivery);
+
+            //order.displayOrder();
+
+            Console.WriteLine("");
+            Console.WriteLine("Does your order look right? (Y/N) ");
+            switch (Console.ReadLine().ToLower())
+            {
+                case "y":
+                Console.Clear();
+                //quit = true;
+                //DisplayMenu();
+                break;
+                case "n":
+                Console.Clear();
+                GetOrder();
+                break;
+                default:
+                Console.WriteLine("Invalid input, try again");
+                break;
+            }
+
+            //return order;
         }
     }
 
