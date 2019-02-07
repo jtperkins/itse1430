@@ -104,7 +104,7 @@ namespace PizzaCreator
                     default: Console.WriteLine("Invalid input");
                         Console.ReadLine();
                         Console.Clear();
-                        ModifyOrder();
+                        //ModifyOrder();
                         break;
                 }
                 Console.Clear();
@@ -123,7 +123,7 @@ namespace PizzaCreator
                 Console.ReadLine();
                 Console.Clear();
                 
-                //DisplayMenu();
+                DisplayMenu();
             }
             else
             {
@@ -413,18 +413,20 @@ namespace PizzaCreator
                     NewOrder();
                     break;
                 case "2":
-                    Console.Clear();
-                    if (order == null)
-                    {
-                        Console.WriteLine("No order to modify");
-                    }
-                    else
-                    {
-                        //order.displayOrder();
-                        ModifyOrder();
-                    }
-                    Console.ReadLine();
-                    Console.Clear();
+                Console.Clear();
+                ModifyOrder();
+                    //Console.Clear();
+                    //if (order == null)
+                    //{
+                    //    Console.WriteLine("No order to modify");
+                    //}
+                    //else
+                    //{
+                    //    //order.displayOrder();
+                    //    ModifyOrder();
+                    //}
+                    //Console.ReadLine();
+                    //Console.Clear();
                     break;
                 //ModifyOrder();
                 //break;
