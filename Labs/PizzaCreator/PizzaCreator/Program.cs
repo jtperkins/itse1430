@@ -11,7 +11,7 @@ namespace PizzaCreator
     {
         //static string choice = null;
         //static bool quit = false;
-        static Order order = new Order();
+        public static Order order = new Order();
         ArrayList list = new ArrayList();
         static Menu menu = new Menu();
 
@@ -24,165 +24,165 @@ namespace PizzaCreator
             //    menu.DisplayMenu();
             //}
 
-            menu.DisplayMenu(order);
+            Menu.DisplayMenu(order);
             
         }
 
-        static void DisplayMenu()
-        {
-            string choice;
-            if (order == null)
-            {
-                Console.WriteLine("\t\t\t\t      ----------------------------------");
-                Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", 0);
-                Console.WriteLine("\t\t\t\t      ----------------------------------");
-            } else
-            {
-                Console.WriteLine("\t\t\t\t      ----------------------------------");
-                Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", order.totalPrice());
-                Console.WriteLine("\t\t\t\t      ----------------------------------");
-            }
+        //void DisplayMenu()
+        //{
+        //    string choice;
+        //    if (order == null)
+        //    {
+        //        Console.WriteLine("\t\t\t\t      ----------------------------------");
+        //        Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", 0);
+        //        Console.WriteLine("\t\t\t\t      ----------------------------------");
+        //    } else
+        //    {
+        //        Console.WriteLine("\t\t\t\t      ----------------------------------");
+        //        Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", order.totalPrice());
+        //        Console.WriteLine("\t\t\t\t      ----------------------------------");
+        //    }
 
-            Console.WriteLine("1. New Order");
-            Console.WriteLine("2. Modify Order");
-            Console.WriteLine("3. Display Order");
-            Console.WriteLine("4. Quit");
-            Console.WriteLine("Please enter your choice (1 - 4)");
+        //    Console.WriteLine("1. New Order");
+        //    Console.WriteLine("2. Modify Order");
+        //    Console.WriteLine("3. Display Order");
+        //    Console.WriteLine("4. Quit");
+        //    Console.WriteLine("Please enter your choice (1 - 4)");
 
-            choice = Console.ReadLine();
+        //    choice = Console.ReadLine();
 
-            //ProcessChoice(choice);
+        //    //ProcessChoice(choice);
 
-        }
+        //}
 
-        static void NewOrder()
-        {
-            if (order == null)
-            {
-                Console.Clear();
-                GetOrder();
-                Console.Clear();
-            }
-            else
-            {
-                string choice;
-                Console.WriteLine("");
-                Console.WriteLine("An order is already created, would you like to start over? (Y/N) ");
-                switch (choice = Console.ReadLine().ToUpper())
-                {
-                    case "Y": order = null;
-                        NewOrder();
-                        break;
-                    case "N": Console.Clear();
-                        DisplayMenu();
-                        break;
-                }
-            }
-        }
+        //static void NewOrder()
+        //{
+        //    if (order == null)
+        //    {
+        //        Console.Clear();
+        //        GetOrder();
+        //        Console.Clear();
+        //    }
+        //    else
+        //    {
+        //        string choice;
+        //        Console.WriteLine("");
+        //        Console.WriteLine("An order is already created, would you like to start over? (Y/N) ");
+        //        switch (choice = Console.ReadLine().ToUpper())
+        //        {
+        //            case "Y": order = null;
+        //                NewOrder();
+        //                break;
+        //            case "N": Console.Clear();
+        //                DisplayMenu();
+        //                break;
+        //        }
+        //    }
+        //}
 
-        static void ModifyOrder()
-        {
-            if (order == null)
-            {
-                Console.WriteLine("No order to modify.");
-                Console.ReadLine();
-                Console.Clear();
-                DisplayMenu();
-            }
-            else
-            {
-                Console.Clear();
-                order.displayOrder();
-                Console.WriteLine("");
-                Console.WriteLine("Are you sure you want to modify your order? (Y/N)");
-                switch (Console.ReadLine().ToLower())
-                {
-                    case "y": Console.Clear();
-                        GetOrder();
-                        break;
-                    case "n": Console.Clear();
-                        DisplayMenu();
-                        break;
-                    default: Console.WriteLine("Invalid input");
-                        Console.ReadLine();
-                        Console.Clear();
-                        //ModifyOrder();
-                        break;
-                }
-                Console.Clear();
-                //order.displayOrder();
-                //Console.ReadLine();
-                //Console.Clear();
-                DisplayMenu();
-            }
-        }
+        //static void ModifyOrder()
+        //{
+        //    if (order == null)
+        //    {
+        //        Console.WriteLine("No order to modify.");
+        //        Console.ReadLine();
+        //        Console.Clear();
+        //        DisplayMenu();
+        //    }
+        //    else
+        //    {
+        //        Console.Clear();
+        //        order.displayOrder();
+        //        Console.WriteLine("");
+        //        Console.WriteLine("Are you sure you want to modify your order? (Y/N)");
+        //        switch (Console.ReadLine().ToLower())
+        //        {
+        //            case "y": Console.Clear();
+        //                GetOrder();
+        //                break;
+        //            case "n": Console.Clear();
+        //                DisplayMenu();
+        //                break;
+        //            default: Console.WriteLine("Invalid input");
+        //                Console.ReadLine();
+        //                Console.Clear();
+        //                //ModifyOrder();
+        //                break;
+        //        }
+        //        Console.Clear();
+        //        //order.displayOrder();
+        //        //Console.ReadLine();
+        //        //Console.Clear();
+        //        DisplayMenu();
+        //    }
+        //}
 
-        static void DisplayOrder()
-        {
-            if (order == null)
-            {
-                Console.WriteLine("No order to display.");
-                Console.ReadLine();
-                Console.Clear();
+        //static void DisplayOrder()
+        //{
+        //    if (order == null)
+        //    {
+        //        Console.WriteLine("No order to display.");
+        //        Console.ReadLine();
+        //        Console.Clear();
                 
-                DisplayMenu();
-            }
-            else
-            {
-                order.displayOrder();
-            }  
-        }
+        //        DisplayMenu();
+        //    }
+        //    else
+        //    {
+        //        order.displayOrder();
+        //    }  
+        //}
 
-        public static void GetOrder()
-        {
-            string size;
-            ArrayList meats = new ArrayList();
-            ArrayList vegetables = new ArrayList();
-            string sauce;
-            string cheese;
-            string delivery;
+        //public static void GetOrder()
+        //{
+        //    string size;
+        //    ArrayList meats = new ArrayList();
+        //    ArrayList vegetables = new ArrayList();
+        //    string sauce;
+        //    string cheese;
+        //    string delivery;
 
-            //size = getSize();
-            //meats = getMeats(meats);
-            //vegetables = getVegetables(vegetables);
-            //sauce = getSauce();
-            //cheese = getCheese();
-            //delivery = getDelivery();
+        //    //size = getSize();
+        //    //meats = getMeats(meats);
+        //    //vegetables = getVegetables(vegetables);
+        //    //sauce = getSauce();
+        //    //cheese = getCheese();
+        //    //delivery = getDelivery();
 
-            //debugging purposes
-            //foreach (var item in meats)
-            //{
-            //    Console.WriteLine(item);
-            //}
+        //    //debugging purposes
+        //    //foreach (var item in meats)
+        //    //{
+        //    //    Console.WriteLine(item);
+        //    //}
 
-            //foreach (var item in vegetables)
-            //{
-            //    Console.WriteLine(item);
-            //}
+        //    //foreach (var item in vegetables)
+        //    //{
+        //    //    Console.WriteLine(item);
+        //    //}
 
-            //order = new Order(size, meats, vegetables, sauce, cheese, delivery);
+        //    //order = new Order(size, meats, vegetables, sauce, cheese, delivery);
 
-            order.displayOrder();
+        //    order.displayOrder();
 
-            Console.WriteLine("");
-            Console.WriteLine("Does your order look right? (Y/N) ");
-            switch (Console.ReadLine().ToLower())
-            {
-                case "y": Console.Clear();
-                    //quit = true;
-                    DisplayMenu();
-                    break;
-                case "n":
-                    Console.Clear();
-                    GetOrder();
-                    break;
-                default:
-                    Console.WriteLine("Invalid input, try again");
-                    break;
-            }
+        //    Console.WriteLine("");
+        //    Console.WriteLine("Does your order look right? (Y/N) ");
+        //    switch (Console.ReadLine().ToLower())
+        //    {
+        //        case "y": Console.Clear();
+        //            //quit = true;
+        //            DisplayMenu();
+        //            break;
+        //        case "n":
+        //            Console.Clear();
+        //            GetOrder();
+        //            break;
+        //        default:
+        //            Console.WriteLine("Invalid input, try again");
+        //            break;
+        //    }
 
-            //return order;
-        }
+        //    //return order;
+        //}
 
         //static string getSize()
         //{

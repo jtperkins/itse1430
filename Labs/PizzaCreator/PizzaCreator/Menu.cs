@@ -15,7 +15,7 @@ namespace PizzaCreator
             
         }
 
-        public void DisplayMenu(Order order)
+        public static void DisplayMenu(Order order)
         {
             string choice;
             bool quit = false;
@@ -45,60 +45,51 @@ namespace PizzaCreator
                 switch (choice)
                 {
                     case "1":
-                    order.NewOrder();
-                    break;
+                        Order.NewOrder(order);
+                        break;
                     case "2":
-                    Console.Clear();
-                    //ModifyOrder();
-                    //Console.Clear();
-                    //if (order == null)
-                    //{
-                    //    Console.WriteLine("No order to modify");
-                    //}
-                    //else
-                    //{
-                    //    //order.displayOrder();
-                    //    ModifyOrder();
-                    //}
-                    //Console.ReadLine();
-                    //Console.Clear();
-                    break;
-                    //ModifyOrder();
-                    //break;
+                        Console.Clear();
+                    
+                        if (!order.madeOrder())
+                        {
+                            Console.WriteLine("No order to modify");
+                        }
+                        else
+                        {
+                            Order.ModifyOrder(order);
+                        }
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                     case "3":
-                    Console.Clear();
-                    //quit = true;
-                    //if (order == null)
-                    //{
-                    //    Console.WriteLine("No order to display");
-                    //}
-                    //else
-                    //{
-                    //    order.displayOrder();
-                    //}
-                    //DisplayOrder();
+                        Console.Clear();
+                        //quit = true;
+                        if (!order.madeOrder())
+                        {
+                            Console.WriteLine("No order to display");
+                        }
+                        else
+                        {
+                            order.displayOrder();
+                        }
+                        //DisplayOrder();
 
-                    Console.ReadLine();
-                    Console.Clear();
-                    //DisplayMenu();
-                    break;
+                        Console.ReadLine();
+                        Console.Clear();
+                        //DisplayMenu();
+                        break;
                     case "4":
-                    //quit = true;
-
-                    break;
+                        //quit = true;
+                        Environment.Exit(0);
+                        break;
                     default:
-                    Console.Clear();
-                    Console.WriteLine("Invalid input, try again");
-                    Console.ReadLine();
-                    Console.Clear();
-                    break;
+                        Console.Clear();
+                        Console.WriteLine("Invalid input, try again");
+                        Console.ReadLine();
+                        Console.Clear();
+                        break;
                 }
             }
-
-            
-
-            //ProcessChoice(choice);
-
         }
 
         public static string getSize()
@@ -128,12 +119,12 @@ namespace PizzaCreator
             return size;
         }
 
-        public ArrayList getMeats( ArrayList list )
+        public static ArrayList getMeats( ArrayList list )
         {
             string meats = null;
             bool quit = false;
 
-
+            list = new ArrayList();
 
             while (!quit)
             {
@@ -148,6 +139,7 @@ namespace PizzaCreator
                 {
                     if (meats.ToLower() == "none")
                     {
+                        Console.Clear();
                         return list;
                     } else
                     {
@@ -155,21 +147,21 @@ namespace PizzaCreator
                         switch (Console.ReadLine().ToLower())
                         {
                             case "y":
-                            list.Add(meats);
-                            Console.Clear();
-                            //quit = true;
-                            continue;
+                                list.Add(meats);
+                                Console.Clear();
+                                //quit = true;
+                                continue;
 
                             case "n":
-                            list.Add(meats);
-                            Console.Clear();
-                            return list;
+                                list.Add(meats);
+                                Console.Clear();
+                                return list;
                             default:
-                            Console.Clear();
-                            Console.WriteLine("Invalid repsonse, try again: ");
-                            Console.ReadLine();
-                            Console.Clear();
-                            break;
+                                Console.Clear();
+                                Console.WriteLine("Invalid repsonse, try again: ");
+                                Console.ReadLine();
+                                Console.Clear();
+                                break;
                         }
                     }
                 } else
@@ -184,12 +176,12 @@ namespace PizzaCreator
             return list;
         }
 
-        public ArrayList getVegetables( ArrayList list )
+        public static ArrayList getVegetables( ArrayList list )
         {
             string vegetables = null;
             bool quit = false;
 
-
+            list = new ArrayList();
 
             while (!quit)
             {
@@ -202,9 +194,9 @@ namespace PizzaCreator
                 vegetables = Console.ReadLine();
                 if (vegetables.ToLower() == "black olives" || vegetables.ToLower() == "mushrooms" || vegetables.ToLower() == "onions" || vegetables.ToLower() == "peppers" || vegetables.ToLower() == "none")
                 {
-
                     if (vegetables.ToLower().CompareTo("none") == 0)
                     {
+                        Console.Clear();
                         return list;
                     } else
                     {
@@ -212,18 +204,18 @@ namespace PizzaCreator
                         switch (Console.ReadLine().ToLower())
                         {
                             case "y":
-                            list.Add(vegetables);
-                            Console.Clear();
-                            continue;
+                                list.Add(vegetables);
+                                Console.Clear();
+                                continue;
                             case "n":
-                            list.Add(vegetables);
-                            Console.Clear();
-                            return list;
+                                list.Add(vegetables);
+                                Console.Clear();
+                                return list;
                             default:
-                            Console.Clear();
-                            Console.WriteLine("Invalid repsonse, try again: ");
-                            Console.ReadLine();
-                            Console.Clear();
+                                Console.Clear();
+                                Console.WriteLine("Invalid repsonse, try again: ");
+                                Console.ReadLine();
+                                Console.Clear();
                             break;
                         }
                     }
@@ -234,12 +226,11 @@ namespace PizzaCreator
                     Console.ReadLine();
                     continue;
                 }
-
             }
             return list;
         }
 
-        public string getSauce()
+        public static string getSauce()
         {
             string sauce = null;
             bool quit = false;
@@ -266,7 +257,7 @@ namespace PizzaCreator
             return sauce;
         }
 
-        public string getCheese()
+        public static string getCheese()
         {
             string cheese = null;
             bool quit = false;
@@ -286,13 +277,12 @@ namespace PizzaCreator
                     Console.ReadLine();
                     continue;
                 }
-
             }
             Console.Clear();
             return cheese;
         }
 
-        public string getDelivery()
+        public static string getDelivery()
         {
             string delivery = null;
             bool quit = false;
@@ -312,66 +302,10 @@ namespace PizzaCreator
                     Console.ReadLine();
                     continue;
                 }
-
             }
             Console.Clear();
             return delivery;
         }
-
-        //void ProcessChoice( string choice, bool quit )
-        //{
-        //    switch (choice)
-        //    {
-        //        case "1":
-        //        order.NewOrder();
-        //        break;
-        //        case "2":
-        //        Console.Clear();
-        //        //ModifyOrder();
-        //        //Console.Clear();
-        //        //if (order == null)
-        //        //{
-        //        //    Console.WriteLine("No order to modify");
-        //        //}
-        //        //else
-        //        //{
-        //        //    //order.displayOrder();
-        //        //    ModifyOrder();
-        //        //}
-        //        //Console.ReadLine();
-        //        //Console.Clear();
-        //        break;
-        //        //ModifyOrder();
-        //        //break;
-        //        case "3":
-        //        Console.Clear();
-        //        //quit = true;
-        //        //if (order == null)
-        //        //{
-        //        //    Console.WriteLine("No order to display");
-        //        //}
-        //        //else
-        //        //{
-        //        //    order.displayOrder();
-        //        //}
-        //        //DisplayOrder();
-
-        //        Console.ReadLine();
-        //        Console.Clear();
-        //        //DisplayMenu();
-        //        break;
-        //        case "4":
-        //        //quit = true;
-
-        //        break;
-        //        default:
-        //        Console.Clear();
-        //        Console.WriteLine("Invalid input, try again");
-        //        Console.ReadLine();
-        //        Console.Clear();
-        //        break;
-        //    }
-        //}
     }
 
 

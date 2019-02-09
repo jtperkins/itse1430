@@ -16,20 +16,6 @@ namespace PizzaCreator
         public string cheese;
         public string delivery;
         private bool hasOrdered;
-        
-        
-        //private double small = 5;
-        //private double medium = 6.25;
-        //private double large = 8.75;
-       
-
-        //private double traditional = 0;
-        //private double garlic = 1;
-        //private double oregano = 1;
-        //private double regular = 0;
-        //private double extra = 1.25;
-        //private double takeOut = 0;
-
 
         public Order()
         {
@@ -47,12 +33,12 @@ namespace PizzaCreator
             hasOrdered = true;
         }
 
-        public void NewOrder()
+        public static void NewOrder(Order order)
         {
-            if (!hasOrdered)
+            if (!order.madeOrder())
             {
                 Console.Clear();
-                GetOrder();
+                GetOrder(order);
                 Console.Clear();
             } else
             {
@@ -62,14 +48,95 @@ namespace PizzaCreator
                 switch (choice = Console.ReadLine().ToLower())
                 {
                     case "y":
-                    this.hasOrdered = false;
-                    NewOrder();
-                    break;
+                        order.hasOrdered = false;
+                        NewOrder(order);
+                        break;
                     case "n":
-                    Console.Clear();
-                    //Menu.DisplayMenu();
-                    break;
+                        Console.Clear();
+                        Menu.DisplayMenu(order);
+                        break;
                 }
+            }
+        }
+
+        public static void ModifyOrder(Order order)
+        {
+            if (!order.madeOrder())
+            {
+                Console.WriteLine("No order to modify.");
+                Console.ReadLine();
+                Console.Clear();
+                Menu.DisplayMenu(order);
+            }
+            else
+            {
+                Console.Clear();
+                order.displayOrder();
+                Console.WriteLine("");
+                Console.WriteLine("Are you sure you want to modify your order? (Y/N)");
+                switch (Console.ReadLine().ToLower())
+                {
+                    case "y":
+                        Console.Clear();
+                        GetOrder(order);
+                        break;
+                    case "n":
+                        Console.Clear();
+                        Menu.DisplayMenu(order);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input");
+                        Console.ReadLine();
+                        Console.Clear();
+                        ModifyOrder(order);
+                        break;
+                }
+                Console.Clear();
+                Menu.DisplayMenu(order);
+            }
+        }
+
+        public static void DisplayOrder(Order order)
+        {
+            if (!order.madeOrder())
+            {
+                Console.WriteLine("No order to display.");
+                Console.ReadLine();
+                Console.Clear();
+
+                Menu.DisplayMenu(order);
+            }
+            else
+            {
+                order.displayOrder();
+            }
+        }
+
+        public static void GetOrder(Order order)
+        {
+            ArrayList meats = new ArrayList();
+            ArrayList vegetables = new ArrayList();
+
+            order = new Order(Menu.getSize(), Menu.getMeats(meats), Menu.getVegetables(vegetables), Menu.getSauce(), Menu.getCheese(), Menu.getDelivery());
+
+            order.displayOrder();
+
+            Console.WriteLine("");
+            Console.WriteLine("Does your order look right? (Y/N) ");
+            switch (Console.ReadLine().ToLower())
+            {
+                case "y":
+                    Console.Clear();
+                    //quit = true;
+                    Menu.DisplayMenu(order);
+                    break;
+                case "n":
+                    Console.Clear();
+                    GetOrder(order);
+                    break;
+                default:
+                    Console.WriteLine("Invalid input, try again");
+                    break;
             }
         }
 
@@ -80,7 +147,7 @@ namespace PizzaCreator
                 case "small": return 5;
                 case "medium": return 6.25;
                 case "large": return 8.75;
-                    default: return 5;
+                default: return 5;
             }
         }
 
@@ -118,17 +185,16 @@ namespace PizzaCreator
         public double totalPrice()
         {
             double price = 0;
-            price += sizePrice(size);
-            price += meatPrice(meats);
-            price += vegPrice(vegetables);
-            price += saucePrice(sauce);
-            price += deliveryPrice(delivery);
+            price += sizePrice(this.size);
+            price += meatPrice(this.meats);
+            price += vegPrice(this.vegetables);
+            price += saucePrice(this.sauce);
+            price += deliveryPrice(this.delivery);
             return price;
         }
 
         public void displayOrder()
         {
-            //TODO: Format pricing on displayOrder()
             Console.WriteLine("{0} pizza\t\t{1:C}", size, sizePrice(size));
             if (delivery.ToLower().CompareTo("take out") == 0)
             {
@@ -175,58 +241,6 @@ namespace PizzaCreator
         public bool madeOrder()
         {
             return hasOrdered;
-        }
-
-        public void GetOrder()
-        {
-            string size;
-            ArrayList meats = new ArrayList();
-            ArrayList vegetables = new ArrayList();
-            string sauce;
-            string cheese;
-            string delivery;
-
-            size = Menu.getSize();
-            //meats = Menu.getMeats(meats);
-            //vegetables = Menu.getVegetables(vegetables);
-            //sauce = Menu.getSauce();
-            //cheese = Menu.getCheese();
-            //delivery = Menu.getDelivery();
-
-            //debugging purposes
-            //foreach (var item in meats)
-            //{
-            //    Console.WriteLine(item);
-            //}
-
-            //foreach (var item in vegetables)
-            //{
-            //    Console.WriteLine(item);
-            //}
-
-            //order = new Order(size, meats, vegetables, sauce, cheese, delivery);
-
-            //order.displayOrder();
-
-            Console.WriteLine("");
-            Console.WriteLine("Does your order look right? (Y/N) ");
-            switch (Console.ReadLine().ToLower())
-            {
-                case "y":
-                Console.Clear();
-                //quit = true;
-                //DisplayMenu();
-                break;
-                case "n":
-                Console.Clear();
-                GetOrder();
-                break;
-                default:
-                Console.WriteLine("Invalid input, try again");
-                break;
-            }
-
-            //return order;
         }
     }
 
