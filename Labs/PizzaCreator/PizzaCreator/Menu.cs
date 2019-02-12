@@ -22,7 +22,7 @@ namespace PizzaCreator
             
             while (!quit)
             {
-                if (!order.madeOrder())
+                if (!order.MadeOrder())
                 {
                     Console.WriteLine("\t\t\t\t      ----------------------------------");
                     Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", 0);
@@ -30,7 +30,7 @@ namespace PizzaCreator
                 } else
                 {
                     Console.WriteLine("\t\t\t\t      ----------------------------------");
-                    Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", order.totalPrice());
+                    Console.WriteLine("\t\t\t\t\t**Current order total: {0:C}**", order.TotalPrice());
                     Console.WriteLine("\t\t\t\t      ----------------------------------");
                 }
 
@@ -50,7 +50,7 @@ namespace PizzaCreator
                     case "2":
                         Console.Clear();
                     
-                        if (!order.madeOrder())
+                        if (!order.MadeOrder())
                         {
                             Console.WriteLine("No order to modify");
                         }
@@ -64,13 +64,13 @@ namespace PizzaCreator
                     case "3":
                         Console.Clear();
                         //quit = true;
-                        if (!order.madeOrder())
+                        if (!order.MadeOrder())
                         {
                             Console.WriteLine("No order to display");
                         }
                         else
                         {
-                            order.displayOrder();
+                            order.DisplayOrder(order);
                         }
                         //DisplayOrder();
 
@@ -92,7 +92,7 @@ namespace PizzaCreator
             }
         }
 
-        public static string getSize()
+        public static string GetSize()
         {
             string size = null;
             bool quit = false;
@@ -119,7 +119,7 @@ namespace PizzaCreator
             return size;
         }
 
-        public static ArrayList getMeats( ArrayList list )
+        public static ArrayList GetMeats( ArrayList list )
         {
             string meats = null;
             bool quit = false;
@@ -176,7 +176,7 @@ namespace PizzaCreator
             return list;
         }
 
-        public static ArrayList getVegetables( ArrayList list )
+        public static ArrayList GetVegetables( ArrayList list )
         {
             string vegetables = null;
             bool quit = false;
@@ -230,7 +230,7 @@ namespace PizzaCreator
             return list;
         }
 
-        public static string getSauce()
+        public static string GetSauce()
         {
             string sauce = null;
             bool quit = false;
@@ -257,7 +257,7 @@ namespace PizzaCreator
             return sauce;
         }
 
-        public static string getCheese()
+        public static string GetCheese()
         {
             string cheese = null;
             bool quit = false;
@@ -282,7 +282,7 @@ namespace PizzaCreator
             return cheese;
         }
 
-        public static string getDelivery()
+        public static string GetDelivery()
         {
             string delivery = null;
             bool quit = false;

@@ -35,7 +35,7 @@ namespace PizzaCreator
 
         public static void NewOrder(Order order)
         {
-            if (!order.madeOrder())
+            if (!order.MadeOrder())
             {
                 Console.Clear();
                 GetOrder(order);
@@ -61,7 +61,7 @@ namespace PizzaCreator
 
         public static void ModifyOrder(Order order)
         {
-            if (!order.madeOrder())
+            if (!order.MadeOrder())
             {
                 Console.WriteLine("No order to modify.");
                 Console.ReadLine();
@@ -71,7 +71,7 @@ namespace PizzaCreator
             else
             {
                 Console.Clear();
-                order.displayOrder();
+                order.DisplayOrder(order);
                 Console.WriteLine("");
                 Console.WriteLine("Are you sure you want to modify your order? (Y/N)");
                 switch (Console.ReadLine().ToLower())
@@ -96,30 +96,14 @@ namespace PizzaCreator
             }
         }
 
-        public static void DisplayOrder(Order order)
-        {
-            if (!order.madeOrder())
-            {
-                Console.WriteLine("No order to display.");
-                Console.ReadLine();
-                Console.Clear();
-
-                Menu.DisplayMenu(order);
-            }
-            else
-            {
-                order.displayOrder();
-            }
-        }
-
         public static void GetOrder(Order order)
         {
             ArrayList meats = new ArrayList();
             ArrayList vegetables = new ArrayList();
 
-            order = new Order(Menu.getSize(), Menu.getMeats(meats), Menu.getVegetables(vegetables), Menu.getSauce(), Menu.getCheese(), Menu.getDelivery());
+            order = new Order(Menu.GetSize(), Menu.GetMeats(meats), Menu.GetVegetables(vegetables), Menu.GetSauce(), Menu.GetCheese(), Menu.GetDelivery());
 
-            order.displayOrder();
+            order.DisplayOrder(order);
 
             Console.WriteLine("");
             Console.WriteLine("Does your order look right? (Y/N) ");
@@ -140,7 +124,7 @@ namespace PizzaCreator
             }
         }
 
-        public double sizePrice(string size)
+        public double SizePrice(string size)
         {
             switch (size.ToLower())
             {
@@ -151,17 +135,17 @@ namespace PizzaCreator
             }
         }
 
-        public double meatPrice(ArrayList meats)
+        public double MeatPrice(ArrayList meats)
         {
             return meats.Count * 0.75;
         }
 
-        public double vegPrice(ArrayList vegs)
+        public double VegPrice(ArrayList vegs)
         {
             return vegs.Count * 0.50;
         }
 
-        public double saucePrice(string sauce)
+        public double SaucePrice(string sauce)
         {
             switch (sauce.ToLower())
             {
@@ -172,7 +156,7 @@ namespace PizzaCreator
             }
         }
 
-        public double deliveryPrice(string delivery)
+        public double DeliveryPrice(string delivery)
         {
             switch (delivery.ToLower())
             {
@@ -182,63 +166,73 @@ namespace PizzaCreator
             }
         }
 
-        public double totalPrice()
+        public double TotalPrice()
         {
             double price = 0;
-            price += sizePrice(this.size);
-            price += meatPrice(this.meats);
-            price += vegPrice(this.vegetables);
-            price += saucePrice(this.sauce);
-            price += deliveryPrice(this.delivery);
+            price += SizePrice(this.size);
+            price += MeatPrice(this.meats);
+            price += VegPrice(this.vegetables);
+            price += SaucePrice(this.sauce);
+            price += DeliveryPrice(this.delivery);
             return price;
         }
 
-        public void displayOrder()
+        public void DisplayOrder(Order order)
         {
-            Console.WriteLine("{0} pizza\t\t{1:C}", size, sizePrice(size));
-            if (delivery.ToLower().CompareTo("take out") == 0)
+            if (!order.MadeOrder())
             {
-                Console.WriteLine(delivery);
-            }
-            else
+                Console.WriteLine("No order to display.");
+                Console.ReadLine();
+                Console.Clear();
+
+                Menu.DisplayMenu(order);
+            } else
             {
-                Console.WriteLine("{0}\t\t{1:C}", delivery, deliveryPrice(delivery));
+                //order.displayOrder();
+                Console.WriteLine("{0} pizza\t\t{1:C}", size, SizePrice(size));
+                if (delivery.ToLower().CompareTo("take out") == 0)
+                {
+                    Console.WriteLine(delivery);
+                } else
+                {
+                    Console.WriteLine("{0}\t\t{1:C}", delivery, DeliveryPrice(delivery));
+                }
+                Console.WriteLine("Meats");
+                foreach (string meat in meats)
+                {
+                    if (meat.ToLower().CompareTo("pepperoni") == 0)
+                        Console.WriteLine("\t{0}\t{1:C}", meat, .75);
+                    else
+                        Console.WriteLine("\t{0}\t\t{1:C}", meat, .75);
+
+                }
+                Console.WriteLine("Vegetables");
+                foreach (string veg in vegetables)
+                {
+                    if (veg.ToLower().CompareTo("mushrooms") == 0 || veg.ToLower().CompareTo("black olives") == 0)
+                        Console.WriteLine("\t{0}\t{1:C}", veg, .50);
+                    else
+                        Console.WriteLine("\t{0}\t\t{1:C}", veg, .50);
+                }
+                Console.WriteLine("Sauce");
+                if (sauce.ToLower() == "traditional")
+                {
+                    Console.WriteLine("\t" + sauce);
+                } else
+                {
+                    Console.WriteLine("\t{0}\t\t{1:C}", sauce, SaucePrice(sauce));
+                }
+                for (int i = 0; i < 30; i++)
+                {
+                    Console.Write("-");
+                }
+                Console.WriteLine("");
+                Console.WriteLine("Total\t\t\t{0:C}", TotalPrice());
             }
-            Console.WriteLine("Meats");
-            foreach (string meat in meats)
-            {
-                if (meat.ToLower().CompareTo("pepperoni") == 0)
-                    Console.WriteLine("\t{0}\t{1:C}", meat, .75);
-                else
-                    Console.WriteLine("\t{0}\t\t{1:C}", meat, .75);
-                
-            }
-            Console.WriteLine("Vegetables");
-            foreach (string veg in vegetables)
-            {
-                if (veg.ToLower().CompareTo("mushrooms") == 0 || veg.ToLower().CompareTo("black olives") == 0)
-                    Console.WriteLine("\t{0}\t{1:C}", veg, .50);
-                else
-                    Console.WriteLine("\t{0}\t\t{1:C}", veg, .50);
-            }
-            Console.WriteLine("Sauce");
-            if (sauce.ToLower() == "traditional")
-            {
-                Console.WriteLine("\t" + sauce);
-            }
-            else
-            {
-                Console.WriteLine("\t{0}\t\t{1:C}", sauce, saucePrice(sauce));
-            }
-            for (int i = 0; i < 30; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine("");
-            Console.WriteLine("Total\t\t\t{0:C}", totalPrice());
+            
         }
 
-        public bool madeOrder()
+        public bool MadeOrder()
         {
             return hasOrdered;
         }
