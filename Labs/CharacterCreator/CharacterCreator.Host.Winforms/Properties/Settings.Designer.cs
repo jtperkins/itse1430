@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CharacterCreator.Properties
+namespace CharacterCreator.Host.Winforms.Properties
 {
 
 

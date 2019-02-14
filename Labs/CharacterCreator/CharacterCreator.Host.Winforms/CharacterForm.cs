@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CharacterCreator
+namespace CharacterCreator.Host.Winforms
 {
-    public partial class Form1 : Form
+    public partial class CharacterForm : Form
     {
-        public Form1()
+        public CharacterForm()
         {
             InitializeComponent();
-        }
-
-        private void checkBox1_CheckedChanged( object sender, EventArgs e )
-        {
-
         }
     }
 }
