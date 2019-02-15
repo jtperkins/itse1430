@@ -16,5 +16,17 @@ namespace CharacterCreator.Host.Winforms
         {
             InitializeComponent();
         }
+
+        private void OnNameLeave(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(_txtName.SelectedText))
+            {
+                _nameLabel.Visible = true;
+            }
+            else
+            {
+                
+            }
+        }
     }
 }
