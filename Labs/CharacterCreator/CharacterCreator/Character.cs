@@ -8,7 +8,7 @@ namespace CharacterCreator
 {
     public class Character
     {
-
+        public int Id { get; set; }
 
         private string _name = "";
         /// <summary>
@@ -20,29 +20,25 @@ namespace CharacterCreator
             set { _name = value ?? ""; }
         }
 
-        //private bool _nameBool = false;
-        //public bool nameBool
-        //{
-        //    get { return _nameBool; }
-        //    set { _nameBool = value; }
-        //}
-
-
-        public enum Profession
+        private string _race = "";
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Race
         {
-            Herbalism = 0,
-            Mining = 1,
-            Skinning = 2,
-            Alchemy = 3,
-            Blacksmithing = 4,
-            Enchanting = 5,
-            Engineering = 6,
-            Inscription = 7,
-            Jewelcrafting = 8,
-            Leatherworking = 9,
-            Tailoring = 10
+            get { return _name ?? ""; }
+            set { _name = value ?? ""; }
         }
 
+        private string _profession = "";
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Profession
+        {
+            get { return _name ?? ""; }
+            set { _name = value ?? ""; }
+        }
         //private bool _professionBool = false;
         //public bool professionBool
         //    {
@@ -50,22 +46,7 @@ namespace CharacterCreator
         //        set { _professionBool = value; }
         //    }
 
-        public enum Race
-        {
-            Human = 0,
-            Dwarf = 1,
-            Gnome = 2,
-            NightElf = 3,
-            Orc = 4,
-            Troll = 5,
-            Undead = 6,
-            Tauren = 7,
-            BloodElf = 8,
-            Draenei = 9,
-            Goblin = 10,
-            Worgen = 11,
-            Pandaren = 12
-        }
+
 
         //private bool _raceBool = false;
         //public bool raceBool
@@ -86,7 +67,7 @@ namespace CharacterCreator
 
         private int _intellect = 30;
         /// <summary> gets and sets the intellect attributes from user </summary>
-        public int Inteleect
+        public int Intellect
         {
             get { return _intellect; }
             set

@@ -12,49 +12,82 @@ namespace CharacterCreator.Host.Winforms
 {
     public partial class CharacterForm : Form
     {
-
+        /// <summary>
+        /// gets or sets the property being edited
+        /// </summary>
         public Character Character { get; set; }
+
+        /// <summary>
+        /// allows adding or editing a character
+        /// </summary>
         public CharacterForm()
         {
             InitializeComponent();
         }
 
-        private void OnNameLeave(object sender, EventArgs e)
+        private void OnSave(object sender, EventArgs e)
         {
-            if (!String.IsNullOrEmpty(_txtName.SelectedText))
+            if (!ValidateChildren())
+                return;
+
+            var character = SaveData();
+
+            Character = character;
+            DialogResult = DialogResult.OK;
+            Close();
+
+        }
+
+        private void OnCancel(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
+        }
+
+        private void something(object sender, EventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb.Text.Length == 0)
             {
-                _nameLabel.Visible = true;
+                _errors.SetError(tb, "Name is required");
             }
             
         }
 
-        private decimal ReadDecimal( TextBox control )
-        {
-            if (Decimal.TryParse(control.Text, out var value))
-                return value;
+        //private decimal ReadDecimal( TextBox control )
+        //{
+        //    if (Decimal.TryParse(control.Text, out var value))
+        //        return value;
 
-            return -1;
-        }
+        //    return -1;
+        //}
 
         //Loads UI with game
         private void LoadData( Character character )
         {
-            //_txtName.Text = game.Name;
-            //_txtPublisher.Text = game.Publisher;
-            //_txtPrice.Text = game.Price.ToString();
-            //_cbOwned.Checked = game.Owned;
-            //_cbCompleted.Checked = game.Completed;
+            _txtName.Text = character.Name;
+            _raceBox.Text = character.Race;
+            _professionBox.Text = character.Profession;
+            _strength.Value = character.Strength;
+            _intelligence.Value = character.Intellect;
+            _agility.Value = character.Agility;
+            _constitution.Value = character.Constitution;
+            _charisma.Value = character.Charisma;
         }
 
         //Saves UI into new game
         private Character SaveData()
         {
             var character = new Character();
-            //game.Name = _txtName.Text;
-            //game.Publisher = _txtPublisher.Text;
-            //game.Price = ReadDecimal(_txtPrice);
-            //game.Owned = _cbOwned.Checked;
-            //game.Completed = _cbCompleted.Checked;
+
+            character.Name = _txtName.Text;
+            character.Race = _raceBox.Text;
+            character.Profession = _professionBox.Text;
+            character.Strength = (int)_strength.Value;
+            character.Intellect = (int)_intelligence.Value;
+            character.Agility = (int)_agility.Value;
+            character.Constitution = (int)_constitution.Value;
+            character.Charisma = (int)_charisma.Value;
 
             return character;
         }
@@ -67,5 +100,7 @@ namespace CharacterCreator.Host.Winforms
             if (Character != null)
                 LoadData(Character);
         }
+
+
     }
 }
