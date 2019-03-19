@@ -216,7 +216,7 @@ namespace CharacterCreator.Host.Winforms
         {
 
             var form = new CharacterForm();
-
+            form.Text = "Edit Character";
             var character = GetSelectedCharacter();
             if (character == null)
                 return;
