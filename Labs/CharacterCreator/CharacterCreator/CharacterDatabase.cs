@@ -10,47 +10,41 @@ namespace CharacterCreator
     {
         public CharacterDatabase()
         {
+
+            // test seed data
             //var character = new Character();
             //character.Name = "DOOM";
             //character.Description = "Space Marine";
-            ////character.Price = 49.99M;
             //Add(character);
 
             //character = new Character();
             //character.Name = "Oblivion";
             //character.Description = "Medieval";
-            ////character.Price = 89.99M;
             //Add(character);
 
             //character = new Character();
             //character.Name = "Fallout 76";
             //character.Description = "Failed MMO";
-            ////character.Price = 0.01M;
             //Add(character);
         }
 
-        // TODO: not sure where, but somewhere the name of the character is being changed to the profession, also the race is. maybe somewhere in saveData or in database?
-
+        /// <summary>
+        /// adds Character to the "Database" after successful validation
+        /// </summary>
         public Character Add(Character character)
         {
-            //Validate input
+            // validate input
             if (character == null)
                 throw new ArgumentNullException(nameof(character));
 
-            //Game must be valid
+            // Character must be valid
             if (!character.Validate(character))
                 throw new Exception("Game is invalid.");
 
-            //Game names must be unique
+            // Character names must be unique
             var existing = GetIndex(character.Id);
             if (existing >= 0)
                 throw new Exception("Game must be unique.");
-
-            //Playing around with different exceptions
-            //if (String.Compare(character.Name, "Anthem", true) == 0)
-            //    throw new InvalidOperationException("Only good games are allowed here.");
-            //if (character.Price > 1000)
-            //    throw new NotImplementedException();
 
             for (var index = 0; index < _items.Length; ++index)
             {
@@ -65,6 +59,9 @@ namespace CharacterCreator
             return character;
         }
 
+        /// <summary>
+        /// deletes the appropriate Character by Id
+        /// </summary>
         public void Delete(int id)
         {
             if (id <= 0)
@@ -75,6 +72,10 @@ namespace CharacterCreator
                 _items[index] = null;
         }
 
+        /// <summary>
+        /// grabs the appropriate Character by Id
+        /// </summary>
+        /// <returns>Character</returns>
         public Character Get(int id)
         {
             if (id <= 0)
@@ -87,9 +88,13 @@ namespace CharacterCreator
             return null;
         }
 
+        /// <summary>
+        /// gets all the Characters in "Database"
+        /// </summary>
+        /// <returns>Character array</returns>
         public Character[] GetAll()
         {
-            //How many games?
+            //How many Characters?
             int count = 0;
             foreach (var item in _items)
                 if (item != null)
@@ -104,9 +109,13 @@ namespace CharacterCreator
             return temp;
         }
 
+        /// <summary>
+        /// updates the appropriate Character
+        /// </summary>
+        /// <returns>updated Character</returns>
         public Character Update(int id, Character character)
         {
-            //Validate
+            // validate
             if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
             if (character == null)
@@ -118,7 +127,7 @@ namespace CharacterCreator
             if (index < 0)
                 throw new Exception("Game does not exist.");
 
-            //Game names must be unique            
+            // Character names must be unique            
             var existingIndex = GetIndex(character.Name);
             if (existingIndex >= 0 && existingIndex != index)
                 throw new Exception("Game must be unique.");
@@ -130,6 +139,10 @@ namespace CharacterCreator
             return character;
         }
 
+        /// <summary>
+        /// clones a given Character
+        /// </summary>
+        /// <returns>Cloned Character</returns>
         private Character Clone(Character character)
         {
             var newCharacter = new Character();
@@ -138,6 +151,9 @@ namespace CharacterCreator
             return newCharacter;
         }
 
+        /// <summary>
+        /// takes the given Character and copies over each property
+        /// </summary>
         private void Clone(Character target, Character source)
         {
             target.Id = source.Id;
@@ -152,6 +168,9 @@ namespace CharacterCreator
             target.Description = source.Description;
         }
 
+        /// <summary>
+        /// get the index of the given Character by Id
+        /// </summary>
         private int GetIndex(int id)
         {
             for (var index = 0; index < _items.Length; ++index)
@@ -161,6 +180,9 @@ namespace CharacterCreator
             return -1;
         }
 
+        /// <summary>
+        /// get the index of the given Character by Name
+        /// </summary>
         private int GetIndex(string name)
         {
             for (var index = 0; index < _items.Length; ++index)

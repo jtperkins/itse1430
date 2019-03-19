@@ -11,6 +11,9 @@ namespace CharacterCreator.Host.Winforms
 {
     partial class AboutBox : Form
     {
+        /// <summary>
+        /// Help/About initialize information on the author, class, and lab #
+        /// </summary>
         public AboutBox()
         {
             InitializeComponent();
@@ -102,11 +105,9 @@ namespace CharacterCreator.Host.Winforms
         }
         #endregion
 
-        private void labelProductName_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// button to close the about form
+        /// </summary>
         private void OnAboutExit(object sender, EventArgs e)
         {
             Close();

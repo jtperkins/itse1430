@@ -25,6 +25,9 @@ namespace CharacterCreator.Host.Winforms
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Function called when user tries to save the character. checks for validation and if validated, saves the character
+        /// </summary>
         private void OnSave(object sender, EventArgs e)
         {
             if (!ValidateChildren())
@@ -48,32 +51,18 @@ namespace CharacterCreator.Host.Winforms
 
         }
 
+        /// <summary>
+        /// closes the character form when user clicks the cancel button, does not save any data
+        /// </summary>
         private void OnCancel(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
-        private void Error(object sender, EventArgs e)
-        {
-            var tb = sender as TextBox;
-            if (tb.Text.Length == 0)
-            {
-                _error.SetError(tb, "Name is required");
-            } else
-                _error.SetError(tb, "");
-            
-        }
-
-        //private decimal ReadDecimal( TextBox control )
-        //{
-        //    if (Decimal.TryParse(control.Text, out var value))
-        //        return value;
-
-        //    return -1;
-        //}
-
-        //Loads UI with game
+        /// <summary>
+        /// loads UI with Character
+        /// </summary>
         private void LoadData( Character character )
         {
             _txtName.Text = character.Name;
@@ -87,7 +76,9 @@ namespace CharacterCreator.Host.Winforms
             _description.Text = character.Description;
         }
 
-        //Saves UI into new game
+        /// <summary>
+        /// saves UI into new Character
+        /// </summary>
         private Character SaveData()
         {
             var character = new Character();
@@ -105,15 +96,20 @@ namespace CharacterCreator.Host.Winforms
             return character;
         }
 
+        /// <summary>
+        /// Init UI if editing a game
+        /// </summary>
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
 
-            //Init UI if editing a game
             if (Character != null)
                 LoadData(Character);
         }
 
+        /// <summary>
+        /// validates the _txtName field
+        /// </summary>
         private void OnValidateName( object sender, CancelEventArgs e)
         {
             var tb = sender as TextBox;
@@ -124,6 +120,9 @@ namespace CharacterCreator.Host.Winforms
                 _error.SetError(tb, "");
         }
 
+        /// <summary>
+        /// validates _raceBox ComboBox
+        /// </summary>
         private void OnValidateRace( object sender, CancelEventArgs e )
         {
             var tb = sender as ComboBox;
@@ -134,6 +133,9 @@ namespace CharacterCreator.Host.Winforms
                 _error.SetError(tb, "");
         }
 
+        /// <summary>
+        /// validates _professionBox ComboBox
+        /// </summary>
         private void OnValidateProfession( object sender, CancelEventArgs e )
         {
             var tb = sender as ComboBox;

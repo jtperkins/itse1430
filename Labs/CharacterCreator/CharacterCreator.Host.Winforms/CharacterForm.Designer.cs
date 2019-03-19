@@ -284,7 +284,7 @@
             this._error.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this._error.ContainerControl = this;
             this._error.RightToLeft = true;
-            this._error.RightToLeftChanged += new System.EventHandler(this.Error);
+
             // 
             // _attributesLabel
             // 

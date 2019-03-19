@@ -16,37 +16,36 @@ namespace CharacterCreator.Host.Winforms
     public partial class MainForm : Form
     {
         private Character _character = new Character();
-        //private Character[] _characters = new Character[100];
+
         public MainForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// closes the form when user clicks File/Exit or Alt+F4
+        /// </summary>
         private void OnFileExit( object sender, EventArgs e )
         {
             Close();
         }
 
+        /// <summary>
+        /// opens the About form that displays the lab, class and author information
+        /// </summary>
         private void OnHelpAbout( object sender, EventArgs e )
         {
             var form = new AboutBox();
             form.ShowDialog();
         }
 
-        //private void f( object sender, KeyPressEventArgs e )
-        //{
-           
-        //    var form = new AboutBox();
-        //    form.ShowDialog();
-        //}
-
+        /// <summary>
+        /// opens the Character Form to create a new Character
+        /// </summary>
         private void OnCharacterNew( object sender, EventArgs e )
         {
             // display UI
             var form = new CharacterForm();
-
-            // modeless
-            // form.Show();
 
             // modal
             while(true)
@@ -60,14 +59,13 @@ namespace CharacterCreator.Host.Winforms
                 {
                     //Anything in here that raises an exception will
                     //be sent to the catch block
-
                     OnSafeAdd(form);
                     break;
                 }
-                catch (InvalidOperationException)
-                {
-                    MessageBox.Show(this, "Choose a better game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //catch (InvalidOperationException)
+                //{
+                //    MessageBox.Show(this, "Choose a better game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
                 catch (Exception ex)
                 {
                     //Recover from errors
@@ -75,96 +73,36 @@ namespace CharacterCreator.Host.Winforms
                 };
             };
 
+            // bind list to ListBox
             BindList();
-
-            // if ok then add to system
-            //_character = form.Character;
-
-            //TODO: New
-            //_characters[GetNextEmptyCharacter()] = new Character();
         }
 
+        /// <summary>
+        /// displays the raised exception
+        /// </summary>
         private void DisplayError(Exception ex)
         {
             MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        //HACK: find first spot in array with no game
-        //private int GetNextEmptyCharacter()
-        //{
-        //    for (var index = 0; index < _characters.Length; ++index)
-        //        if (_characters[index] == null)
-        //            return index;
-        //    return -1;
-        //}
-
-        private void OnCharacterSelected( object sender, EventArgs e )
-        {
-
-        }
-
-
-        //private void UpdateGame( Character oldGame, Character newGame )
-        //{
-        //    for (var index = 0; index < _characters.Length; ++index)
-        //    {
-        //        if (_characters[index] == oldGame)
-        //        {
-        //            _characters[index] = newGame;
-        //            break;
-        //        };
-        //    };
-        //}
-
-        //private void OnCharacterDelete( object sender, EventArgs e )
-        //{
-        //    //Get selected game, if any
-        //    var selected = GetSelectedCharacter();
-        //    if (selected == null)
-        //        return;
-
-        //    //Display confirmation
-        //    if (MessageBox.Show(this, $"Are you sure you want to delete {selected.Name}?",
-        //                       "Confirm Delete", MessageBoxButtons.YesNo,
-        //                       MessageBoxIcon.Question) != DialogResult.Yes)
-        //        return;
-
-        //    //TODO: Delete
-        //    DeleteGame(selected);
-        //    BindList();
-        //}
-
-        //private void DeleteGame( Character character )
-        //{
-        //    for (var index = 0; index < _characters.Length; ++index)
-        //    {
-        //        if (_characters[index] == character)
-        //        {
-        //            _characters[index] = null;
-        //            break;
-        //        };
-        //    };
-        //}
-
-
+        /// <summary>
+        /// bind list to ListBox. clears intems already there and adds all current items back in to support deleting and creating Character
+        /// </summary>
         private void BindList()
         {
-            // Bind games to listbox
+            // clear all items in ListBox
             _listCharacters.Items.Clear();
 
+            // display the name of the Character
             _listCharacters.DisplayMember = nameof(Character.Name);
-
-            //Can use AddRange now that we don't care about null items
+            
+            // add all Characters to ListBox
             _listCharacters.Items.AddRange(_characters.GetAll());
-
-            //_listCharacter
-            //foreach (var character in _characters)
-            //{
-            //    if (character != null)
-            //        _listCharacters.Items.Add(character);
-            //}
         }
 
+        /// <summary>
+        /// OnLoad bind the current list of Characters to ListBox. if none adds none
+        /// </summary>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -172,11 +110,14 @@ namespace CharacterCreator.Host.Winforms
             BindList();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void OnSafeAdd(CharacterForm form)
         {
             try
             {
-                //_games[GetNextEmptyGame()] = form.Game;
+                // adds Character from Character form
                 _characters.Add(form.Character);
             }
             catch (NotImplementedException e)
@@ -194,34 +135,37 @@ namespace CharacterCreator.Host.Winforms
             };
         }
 
+        /// <summary>
+        /// faux CharacterDatabase for MainForm
+        /// </summary>
         private CharacterDatabase _characters = new CharacterDatabase();
 
+        /// <summary>
+        /// grabs the character that is selected from ListBox to edit or delete the appropriate Character
+        /// </summary>
+        /// <returns>Selected Character</returns>
         private Character GetSelectedCharacter()
         {
-
-            var value = _listCharacters.SelectedItem;
-
-            // C-style cast - dont do this
-            //var game = (Character)value;
-
-            var game = value as Character;
-
-            //type check
-            //var game = (value is Character) ? (Character)value : null;
-
             return _listCharacters.SelectedItem as Character;
         }
 
+        /// <summary>
+        /// opens the CharacterForm after user selects the character and chooses the appropriate menu item or hotkey
+        /// </summary>
         private void OnGameEdit( object sender, EventArgs e )
         {
-
+            // opens character form
             var form = new CharacterForm();
+
+            // change title of Form to edit
             form.Text = "Edit Character";
+
+            //make sure we're editing appropriate Character, if no Character, return
             var character = GetSelectedCharacter();
             if (character == null)
                 return;
 
-            //Game to edit
+            // Character to edit
             form.Character = character;
 
             while (true)
@@ -229,9 +173,9 @@ namespace CharacterCreator.Host.Winforms
                 if (form.ShowDialog(this) != DialogResult.OK)
                     return;
 
+                // try to update the Character 
                 try
-                {
-                    //UpdateGame(game, form.Game);            
+                {          
                     _characters.Update(character.Id, form.Character);
                     break;
                 }
@@ -242,45 +186,34 @@ namespace CharacterCreator.Host.Winforms
             };
 
             BindList();
-            //var form = new CharacterForm();
-
-            //var character = GetSelectedCharacter();
-            //if (character == null)
-            //    return;
-
-            //// Characterx` to edit
-            //form.Character = character;
-
-            //if (form.ShowDialog(this) != DialogResult.OK)
-            //    return;
-
-            ////TODO: Fix to edit, not add
-            //UpdateGame(character, form.Character);
-            //BindList();
         }
 
+        /// <summary>
+        /// deletes the chosen Character with menu item or appropriate hotkey
+        /// </summary>
         private void OnCharacterDelete(object sender, EventArgs e)
         {
-            //Get selected game, if any
+            // get selected Character, if any
             var selected = GetSelectedCharacter();
             if (selected == null)
                 return;
 
-            //Display confirmation
+            // display confirmation
             if (MessageBox.Show(this, $"Are you sure you want to delete {selected.Name}?",
                                "Confirm Delete", MessageBoxButtons.YesNo,
                                MessageBoxIcon.Question) != DialogResult.Yes)
                 return;
 
+            // attempt to delete the Character
             try
             {
-                //DeleteGame(selected);
                 _characters.Delete(selected.Id);
             }
             catch (Exception ex)
             {
                 DisplayError(ex);
             };
+
             BindList();
         }
     }
