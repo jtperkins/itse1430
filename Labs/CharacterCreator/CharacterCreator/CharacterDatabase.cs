@@ -38,7 +38,7 @@ namespace CharacterCreator
                 throw new ArgumentNullException(nameof(character));
 
             //Game must be valid
-            if (!character.Validate())
+            if (!character.Validate(character))
                 throw new Exception("Game is invalid.");
 
             //Game names must be unique
@@ -111,7 +111,7 @@ namespace CharacterCreator
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
             if (character == null)
                 throw new ArgumentNullException(nameof(character));
-            if (!character.Validate())
+            if (!character.Validate(character))
                 throw new Exception("Game is invalid.");
 
             var index = GetIndex(id);

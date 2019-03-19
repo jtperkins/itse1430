@@ -33,9 +33,15 @@ namespace CharacterCreator.Host.Winforms
 
             var character = SaveData();
 
-            if (!character.Validate())
+            try
+            {
+                character.Validate(character);
+            } catch(Exception ex)
+            {
+                _attributesError.SetError(_attributesLabel, "You only have 300 points to spend");
                 return;
-
+            }
+            
             Character = character;
             DialogResult = DialogResult.OK;
             Close();
@@ -48,13 +54,14 @@ namespace CharacterCreator.Host.Winforms
             Close();
         }
 
-        private void something(object sender, EventArgs e)
+        private void Error(object sender, EventArgs e)
         {
             var tb = sender as TextBox;
             if (tb.Text.Length == 0)
             {
-                _errors.SetError(tb, "Name is required");
-            }
+                _error.SetError(tb, "Name is required");
+            } else
+                _error.SetError(tb, "");
             
         }
 
@@ -84,18 +91,17 @@ namespace CharacterCreator.Host.Winforms
         private Character SaveData()
         {
             var character = new Character();
-            if (character.Validate())
-            {
-                character.Name = _txtName.Text;
-                character.Race = _raceBox.Text;
-                character.Profession = _professionBox.Text;
-                character.Strength = (int)_strength.Value;
-                character.Intellect = (int)_intelligence.Value;
-                character.Agility = (int)_agility.Value;
-                character.Constitution = (int)_constitution.Value;
-                character.Charisma = (int)_charisma.Value;
-                character.Description = _description.Text;
-            }
+   
+            character.Name = _txtName.Text;
+            character.Race = _raceBox.Text;
+            character.Profession = _professionBox.Text;
+            character.Strength = (int)_strength.Value;
+            character.Intellect = (int)_intelligence.Value;
+            character.Agility = (int)_agility.Value;
+            character.Constitution = (int)_constitution.Value;
+            character.Charisma = (int)_charisma.Value;
+            character.Description = _description.Text;
+            
             return character;
         }
 
@@ -108,6 +114,34 @@ namespace CharacterCreator.Host.Winforms
                 LoadData(Character);
         }
 
+        private void OnValidateName( object sender, CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Name is required");
+            } else
+                _error.SetError(tb, "");
+        }
 
+        private void OnValidateRace( object sender, CancelEventArgs e )
+        {
+            var tb = sender as ComboBox;
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Race is required");
+            } else
+                _error.SetError(tb, "");
+        }
+
+        private void OnValidateProfession( object sender, CancelEventArgs e )
+        {
+            var tb = sender as ComboBox;
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Profession is required");
+            } else
+                _error.SetError(tb, "");
+        }
     }
 }

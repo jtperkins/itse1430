@@ -48,15 +48,18 @@
             this._charisma = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            this._error = new System.Windows.Forms.ErrorProvider(this.components);
+            this._attributesLabel = new System.Windows.Forms.Label();
             this._description = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this._attributesError = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._strength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._intelligence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._agility)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._constitution)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._charisma)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._error)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._attributesError)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -74,7 +77,7 @@
             this._txtName.Name = "_txtName";
             this._txtName.Size = new System.Drawing.Size(119, 20);
             this._txtName.TabIndex = 1;
-            this._txtName.Leave += new System.EventHandler(this.something);
+            this._txtName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // label2
             // 
@@ -87,6 +90,8 @@
             // 
             // _raceBox
             // 
+            this._raceBox.AllowDrop = true;
+            this._raceBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._raceBox.FormattingEnabled = true;
             this._raceBox.Items.AddRange(new object[] {
             "Human",
@@ -107,6 +112,7 @@
             this._raceBox.Name = "_raceBox";
             this._raceBox.Size = new System.Drawing.Size(121, 21);
             this._raceBox.TabIndex = 3;
+            this._raceBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateRace);
             // 
             // label3
             // 
@@ -119,6 +125,7 @@
             // 
             // _professionBox
             // 
+            this._professionBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._professionBox.FormattingEnabled = true;
             this._professionBox.Items.AddRange(new object[] {
             "Herbalism",
@@ -136,11 +143,12 @@
             this._professionBox.Name = "_professionBox";
             this._professionBox.Size = new System.Drawing.Size(121, 21);
             this._professionBox.TabIndex = 5;
+            this._professionBox.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateProfession);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(83, 120);
+            this.label4.Location = new System.Drawing.Point(86, 120);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 6;
@@ -271,12 +279,21 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.OnSave);
             // 
-            // _errors
+            // _error
             // 
-            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this._errors.ContainerControl = this;
-            this._errors.RightToLeft = true;
-            this._errors.RightToLeftChanged += new System.EventHandler(this.something);
+            this._error.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._error.ContainerControl = this;
+            this._error.RightToLeft = true;
+            this._error.RightToLeftChanged += new System.EventHandler(this.Error);
+            // 
+            // _attributesLabel
+            // 
+            this._attributesLabel.AutoSize = true;
+            this._attributesLabel.Location = new System.Drawing.Point(51, 133);
+            this._attributesLabel.Name = "_attributesLabel";
+            this._attributesLabel.Size = new System.Drawing.Size(128, 13);
+            this._attributesLabel.TabIndex = 21;
+            this._attributesLabel.Text = "You have 300 points total";
             // 
             // _description
             // 
@@ -296,11 +313,18 @@
             this.label10.TabIndex = 17;
             this.label10.Text = "Description (optional)";
             // 
+            // _attributesError
+            // 
+            this._attributesError.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._attributesError.ContainerControl = this;
+            this._attributesError.RightToLeft = true;
+            // 
             // CharacterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(234, 446);
+            this.Controls.Add(this._attributesLabel);
             this.Controls.Add(this.label10);
             this.Controls.Add(this._description);
             this.Controls.Add(this.button2);
@@ -334,7 +358,8 @@
             ((System.ComponentModel.ISupportInitialize)(this._agility)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._constitution)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._charisma)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._error)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._attributesError)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -361,8 +386,10 @@
         private System.Windows.Forms.ComboBox _raceBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.ErrorProvider _errors;
+        private System.Windows.Forms.ErrorProvider _error;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox _description;
+        private System.Windows.Forms.Label _attributesLabel;
+        private System.Windows.Forms.ErrorProvider _attributesError;
     }
 }

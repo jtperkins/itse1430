@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CharacterCreator
 {
@@ -60,7 +61,7 @@ namespace CharacterCreator
         public int Strength
         {
             get { return _strength; }
-            set { if (value > 0 && value < 100)
+            set { if (value >= 0 && value <= 100)
                     _strength = value;
             }
         }
@@ -72,7 +73,7 @@ namespace CharacterCreator
             get { return _intellect; }
             set
             {
-                if (value > 0 && value < 100)
+                if (value >= 0 && value <= 100)
                     _intellect = value;
             }
         }
@@ -84,7 +85,7 @@ namespace CharacterCreator
             get { return _agility; }
             set
             {
-                if (value > 0 && value < 100)
+                if (value >= 0 && value <= 100)
                     _agility = value;
             }
         }
@@ -96,7 +97,7 @@ namespace CharacterCreator
             get { return _constitution; }
             set
             {
-                if (value > 0 && value < 100)
+                if (value >= 0 && value <= 100)
                     _constitution = value;
             }
         }
@@ -108,7 +109,7 @@ namespace CharacterCreator
             get { return _charisma; }
             set
             {
-                if (value > 0 && value < 100)
+                if (value >= 0 && value <= 100)
                     _charisma = value;
             }
         }
@@ -123,20 +124,25 @@ namespace CharacterCreator
 
         /// <summary> Validates the object. </summary>
         /// <returns> true if valid or false otherwise </returns>
-        public bool Validate( /*Game This */ )
+        public bool Validate(Character c)
         {
-            if (String.IsNullOrEmpty(Name))
+            if (String.IsNullOrEmpty(c.Name))
                 return false;
 
-            if (String.IsNullOrEmpty(Race))
+            if (String.IsNullOrEmpty(c.Race))
                 return false;
 
-            if (String.IsNullOrEmpty(Profession))
+            if (String.IsNullOrEmpty(c.Profession))
                 return false;
 
-            if (Strength + Intellect + Agility + Constitution + Charisma > 300)
+            if (c.Strength + c.Intellect + c.Agility + c.Constitution + c.Charisma > 300)
+            {
+                //var sb = error;
+                //error.SetError("You only have 300 points to spend");
+                throw new Exception("You only have 300 points to spend");
                 return false;
-            //TODO: need to implement validation on professions and race, after making the enums
+            }
+                
 
             return true;
         }
