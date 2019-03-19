@@ -10,23 +10,23 @@ namespace CharacterCreator
     {
         public CharacterDatabase()
         {
-            var character = new Character();
-            character.Name = "DOOM";
-            character.Description = "Space Marine";
-            //character.Price = 49.99M;
-            Add(character);
+            //var character = new Character();
+            //character.Name = "DOOM";
+            //character.Description = "Space Marine";
+            ////character.Price = 49.99M;
+            //Add(character);
 
-            character = new Character();
-            character.Name = "Oblivion";
-            character.Description = "Medieval";
-            //character.Price = 89.99M;
-            Add(character);
+            //character = new Character();
+            //character.Name = "Oblivion";
+            //character.Description = "Medieval";
+            ////character.Price = 89.99M;
+            //Add(character);
 
-            character = new Character();
-            character.Name = "Fallout 76";
-            character.Description = "Failed MMO";
-            //character.Price = 0.01M;
-            Add(character);
+            //character = new Character();
+            //character.Name = "Fallout 76";
+            //character.Description = "Failed MMO";
+            ////character.Price = 0.01M;
+            //Add(character);
         }
 
         // TODO: not sure where, but somewhere the name of the character is being changed to the profession, also the race is. maybe somewhere in saveData or in database?

@@ -280,6 +280,7 @@
             // 
             // _description
             // 
+            this._description.CausesValidation = false;
             this._description.Location = new System.Drawing.Point(33, 340);
             this._description.Multiline = true;
             this._description.Name = "_description";

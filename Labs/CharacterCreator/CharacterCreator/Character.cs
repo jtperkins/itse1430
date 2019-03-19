@@ -26,8 +26,8 @@ namespace CharacterCreator
         /// </summary>
         public string Race
         {
-            get { return _name ?? ""; }
-            set { _name = value ?? ""; }
+            get { return _race ?? ""; }
+            set { _race = value ?? ""; }
         }
 
         private string _profession = "";
@@ -36,8 +36,8 @@ namespace CharacterCreator
         /// </summary>
         public string Profession
         {
-            get { return _name ?? ""; }
-            set { _name = value ?? ""; }
+            get { return _profession ?? ""; }
+            set { _profession = value ?? ""; }
         }
         //private bool _professionBool = false;
         //public bool professionBool
@@ -55,7 +55,7 @@ namespace CharacterCreator
         //    set { _raceBool = value; }
         //}
 
-        private int _strength = 30;
+        private int _strength = 50;
         /// <summary> gets and sets the strength attributes from user </summary>
         public int Strength
         {
@@ -65,7 +65,7 @@ namespace CharacterCreator
             }
         }
 
-        private int _intellect = 30;
+        private int _intellect = 50;
         /// <summary> gets and sets the intellect attributes from user </summary>
         public int Intellect
         {
@@ -77,7 +77,7 @@ namespace CharacterCreator
             }
         }
 
-        private int _agility = 30;
+        private int _agility = 50;
         /// <summary> gets and sets the agility attributes from user </summary>
         public int Agility
         {
@@ -89,7 +89,7 @@ namespace CharacterCreator
             }
         }
 
-        private int _constitution = 30;
+        private int _constitution = 50;
         /// <summary> gets and sets the constitution attributes from user </summary>
         public int Constitution
         {
@@ -101,7 +101,7 @@ namespace CharacterCreator
             }
         }
 
-        private int _charisma = 30;
+        private int _charisma = 50;
         /// <summary> gets and sets the charisma attributes from user </summary>
         public int Charisma
         {
@@ -117,8 +117,8 @@ namespace CharacterCreator
         /// <summary>  gets and sets the optional biogrphical description  </summary>
         public string Description
         {
-            get { return _name ?? ""; }
-            set { _name = value ?? ""; }
+            get { return _description ?? ""; }
+            set { _description = value ?? ""; }
         }
 
         /// <summary> Validates the object. </summary>
@@ -128,6 +128,14 @@ namespace CharacterCreator
             if (String.IsNullOrEmpty(Name))
                 return false;
 
+            if (String.IsNullOrEmpty(Race))
+                return false;
+
+            if (String.IsNullOrEmpty(Profession))
+                return false;
+
+            if (Strength + Intellect + Agility + Constitution + Charisma > 300)
+                return false;
             //TODO: need to implement validation on professions and race, after making the enums
 
             return true;

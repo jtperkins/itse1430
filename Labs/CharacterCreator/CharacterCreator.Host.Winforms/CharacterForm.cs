@@ -30,7 +30,11 @@ namespace CharacterCreator.Host.Winforms
             if (!ValidateChildren())
                 return;
 
+
             var character = SaveData();
+
+            if (!character.Validate())
+                return;
 
             Character = character;
             DialogResult = DialogResult.OK;
@@ -73,22 +77,25 @@ namespace CharacterCreator.Host.Winforms
             _agility.Value = character.Agility;
             _constitution.Value = character.Constitution;
             _charisma.Value = character.Charisma;
+            _description.Text = character.Description;
         }
 
         //Saves UI into new game
         private Character SaveData()
         {
             var character = new Character();
-
-            character.Name = _txtName.Text;
-            character.Race = _raceBox.Text;
-            character.Profession = _professionBox.Text;
-            character.Strength = (int)_strength.Value;
-            character.Intellect = (int)_intelligence.Value;
-            character.Agility = (int)_agility.Value;
-            character.Constitution = (int)_constitution.Value;
-            character.Charisma = (int)_charisma.Value;
-
+            if (character.Validate())
+            {
+                character.Name = _txtName.Text;
+                character.Race = _raceBox.Text;
+                character.Profession = _professionBox.Text;
+                character.Strength = (int)_strength.Value;
+                character.Intellect = (int)_intelligence.Value;
+                character.Agility = (int)_agility.Value;
+                character.Constitution = (int)_constitution.Value;
+                character.Charisma = (int)_charisma.Value;
+                character.Description = _description.Text;
+            }
             return character;
         }
 
