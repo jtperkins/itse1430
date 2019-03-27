@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManager.UI", "ContactManager.UI\ContactManager.UI.csproj", "{9DBC58ED-7043-4257-B88B-A2F6C50E63B2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactManager", "ContactManager\ContactManager.csproj", "{F116389B-9129-4A5D-A46F-E70148CB24DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DBC58ED-7043-4257-B88B-A2F6C50E63B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DBC58ED-7043-4257-B88B-A2F6C50E63B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DBC58ED-7043-4257-B88B-A2F6C50E63B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DBC58ED-7043-4257-B88B-A2F6C50E63B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F116389B-9129-4A5D-A46F-E70148CB24DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F116389B-9129-4A5D-A46F-E70148CB24DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F116389B-9129-4A5D-A46F-E70148CB24DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F116389B-9129-4A5D-A46F-E70148CB24DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4975799A-D7BA-4844-94B0-9EA5D0AF4E75}
+	EndGlobalSection
+EndGlobal
