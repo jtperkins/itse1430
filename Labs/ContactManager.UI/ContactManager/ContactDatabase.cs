@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ContactManager
 {
-    class ContactDatabase : IContactDatabase
+    public class ContactDatabase : IContactDatabase
     {
         public Contact Add( Contact contact )
         {
