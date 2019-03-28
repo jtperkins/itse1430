@@ -95,8 +95,17 @@ namespace ContactManager.UI
             // display the name of the Character
             _listContacts.DisplayMember = nameof(Contact.Name);
 
-            // add all Characters to ListBox
-            _listContacts.Items.AddRange(_contacts.GetAll().ToArray());
+            // sort
+            var items = _contacts.GetAll();
+            items = items.OrderBy(GetName);
+
+            // add all Contacts to ListBox
+            _listContacts.Items.AddRange(items.ToArray());
+        }
+
+        private string GetName(Contact contact)
+        {
+            return contact.Name;
         }
 
         private void DisplayError(Exception ex)
@@ -105,7 +114,6 @@ namespace ContactManager.UI
         }
 
         private ContactDatabase _contacts = new ContactDatabase();
-
 
     }
 }

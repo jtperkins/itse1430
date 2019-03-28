@@ -54,10 +54,10 @@ namespace ContactManager
             char[] chars = Email.ToCharArray();
             foreach (var character in chars)
             {
-                if (!character.Equals('@'))
-                {
-                    items.Add(new ValidationResult("Improper email format.", new[] { nameof(Email) }));
-                }
+                //if (!character.Equals('@'))
+                //{
+                //    items.Add(new ValidationResult("Improper email format.", new[] { nameof(Email) }));
+                //}
             }
 
             return items;

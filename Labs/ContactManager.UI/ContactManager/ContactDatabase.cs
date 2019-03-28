@@ -26,6 +26,10 @@ namespace ContactManager
             if (existing != null)
                 throw new Exception("Character must be unique.");
 
+            // give unique identifier and add to List
+            contact.Id = ++_nextId;
+            _items.Add(contact);
+
             return contact;
         }
 
@@ -103,5 +107,6 @@ namespace ContactManager
         }
 
         private readonly List<Contact> _items = new List<Contact>();
+        private int _nextId = 0;
     }
 }
