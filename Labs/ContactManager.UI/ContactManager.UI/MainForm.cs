@@ -17,12 +17,12 @@ namespace ContactManager.UI
             InitializeComponent();
         }
 
-        private void OnExit(object sender, EventArgs e)
+        private void OnFileExit(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void OnAbout(object sender, EventArgs e)
+        private void OnHelpAbout(object sender, EventArgs e)
         {
             var form = new AboutBox();
 
