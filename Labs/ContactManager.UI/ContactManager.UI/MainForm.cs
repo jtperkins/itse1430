@@ -115,5 +115,66 @@ namespace ContactManager.UI
 
         private ContactDatabase _contacts = new ContactDatabase();
 
+        private void OnContactEdit(object sender, EventArgs e)
+        {
+            var form = new ContactForm();
+
+            var contact = GetSelectedContact();
+            if (contact == null)
+                return;
+
+            //Game to edit
+            form.Contact = contact;
+
+            while (true)
+            {
+                if (form.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    //UpdateGame(game, form.Game);            
+                    _contacts.Update(contact.Id, form.Contact);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    DisplayError(ex);
+                };
+            };
+
+            BindList();
+        }
+
+        private Contact GetSelectedContact()
+        {
+            var value = _listContacts.SelectedItem;
+
+            //C-style cast - don't do this
+            //var game = (Game)value;
+
+            //Preferred - null if not valid
+            var game = value as Contact;
+
+            //Type check
+            //var game2 = (value is Contact) ? (Contact)value : null;
+
+            return _listContacts.SelectedItem as Contact;
+        }
+
+        private void OnContactSelected(object sender, EventArgs e)
+        {
+
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            if (MessageBox.Show(this, "Are you sure?", "Close", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            };
+            base.OnFormClosing(e);
+        }
     }
 }

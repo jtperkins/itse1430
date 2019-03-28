@@ -80,10 +80,10 @@ namespace CharacterCreator.Host.Winforms
         /// <summary>
         /// displays the raised exception
         /// </summary>
-        private void DisplayError(Exception ex)
-        {
-            MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+            private void DisplayError(Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         /// <summary>
         /// bind list to ListBox. clears intems already there and adds all current items back in to support deleting and creating Character

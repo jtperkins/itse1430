@@ -53,10 +53,24 @@ namespace ContactManager.UI
             return contact;
         }
 
+        private void LoadData(Contact contact)
+        {
+            _txtName.Text = contact.Name;
+            _txtEmail.Text = contact.Email;
+        }
+
         private void OnCancel(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (Contact != null)
+                LoadData(Contact);
         }
     }
 }
