@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -38,10 +39,11 @@ namespace CharacterCreator.Host.Winforms
 
             try
             {
-                character.Validate(character);
-            } catch(Exception ex)
+                //character.Validate(character);
+                new ObjectValidator().Validate(character);
+            } catch(ValidationException ex)
             {
-                _attributesError.SetError(_attributesLabel, "You only have 300 points to spend");
+                //_attributesError.SetError(_attributesLabel, "You only have 300 points to spend");
                 return;
             }
             

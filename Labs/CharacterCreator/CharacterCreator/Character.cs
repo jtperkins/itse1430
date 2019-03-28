@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,8 +8,9 @@ using System.Windows.Forms;
 
 namespace CharacterCreator
 {
-    public class Character
+    public class Character : IValidatableObject
     {
+
         /// <summary>
         /// CharacterDatabase unique identifier
         /// </summary>
@@ -124,22 +126,43 @@ namespace CharacterCreator
 
         /// <summary> Validates the object. </summary>
         /// <returns> true if valid or false otherwise </returns>
-        public bool Validate(Character c)
+        //public bool Validate(Character c)
+        //{
+        //    if (String.IsNullOrEmpty(c.Name))
+        //        return false;
+
+        //    if (String.IsNullOrEmpty(c.Race))
+        //        return false;
+
+        //    if (String.IsNullOrEmpty(c.Profession))
+        //        return false;
+
+        //    if (c.Strength + c.Intellect + c.Agility + c.Constitution + c.Charisma > 300)
+        //    {
+        //        throw new Exception("You only have 300 points to spend");
+        //    }
+        //    return true;
+        //}
+
+        public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
-            if (String.IsNullOrEmpty(c.Name))
-                return false;
+            var items = new List<ValidationResult>();
 
-            if (String.IsNullOrEmpty(c.Race))
-                return false;
+            // Name is required
+            if (String.IsNullOrEmpty(Name))
+                items.Add(new ValidationResult("Name is required.", new[] { nameof(Name) }));
 
-            if (String.IsNullOrEmpty(c.Profession))
-                return false;
+            // Race is required
+            if (String.IsNullOrEmpty(Race))
+                items.Add(new ValidationResult("Race is required.", new[] { nameof(Race) }));
 
-            if (c.Strength + c.Intellect + c.Agility + c.Constitution + c.Charisma > 300)
-            {
-                throw new Exception("You only have 300 points to spend");
-            }
-            return true;
+            if (String.IsNullOrEmpty(Profession))
+                items.Add(new ValidationResult("Profession is required.", new[] { nameof(Profession) }));
+
+            if (Strength + Intellect + Agility + Constitution + Charisma > 300)
+                items.Add(new ValidationResult("You only have 300 points to spend."));
+
+                return items;
         }
     }
 }

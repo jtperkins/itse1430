@@ -6,8 +6,28 @@ using System.Threading.Tasks;
 
 namespace CharacterCreator
 {
-    public class CharacterDatabase
+    public class MemoryCharacterDatabase
     {
+        public MemoryCharacterDatabase()
+        {
+
+            // test seed data
+            //var character = new Character();
+            //character.Name = "DOOM";
+            //character.Description = "Space Marine";
+            //Add(character);
+
+            //character = new Character();
+            //character.Name = "Oblivion";
+            //character.Description = "Medieval";
+            //Add(character);
+
+            //character = new Character();
+            //character.Name = "Fallout 76";
+            //character.Description = "Failed MMO";
+            //Add(character);
+        }
+
         /// <summary>
         /// adds Character to the "Database" after successful validation
         /// </summary>
@@ -77,7 +97,7 @@ namespace CharacterCreator
         /// <returns>Character array</returns>
         public Character[] GetAll()
         {
-            //How many Characters ?
+            //How many Characters?
             int count = 0;
             foreach (var item in _items)
                 if (item != null)
@@ -90,9 +110,6 @@ namespace CharacterCreator
                     temp[tempIndex++] = Clone(_items[index]);
 
             return temp;
-
-            //foreach (var item in _items)
-            //    yield return Clone(item);
         }
 
         /// <summary>
