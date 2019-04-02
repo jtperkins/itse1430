@@ -88,22 +88,30 @@ namespace ContactManager
 
         private int GetIndex( int id )
         {
-            for (var index = 0; index < _items.Count; ++index)
-                if (_items[index]?.Id == id)
-                    return index;
+            var contact = _items.Where(c => c.Id == id).FirstOrDefault();
+            if (contact != null)
+                return _items.IndexOf(contact);
+            //for (var index = 0; index < _items.Count; ++index)
+            //    if (_items[index]?.Id == id)
+            //        return index;
 
             return -1;
         }
 
         protected Contact FindByName( string name )
         {
-            foreach (var contact in GetAll())
-            {
-                if (String.Compare(contact.Name, name, true) == 0)
-                    return contact;
-            };
+            // => IEnumerable<T>
+            return (from contact in GetAll()
+                    where String.Compare(contact.Name, name, true) == 0
+                    orderby contact.Name, contact.Id descending
+                    select contact).FirstOrDefault();
+            //foreach (var contact in GetAll())
+            //{
+            //    if (String.Compare(contact.Name, name, true) == 0)
+            //        return contact;
+            //};
 
-            return null;
+            //return null;
         }
 
         private readonly List<Contact> _items = new List<Contact>();
