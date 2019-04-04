@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ContactManager.FileSystem;
 
 namespace ContactManager.UI
 {
@@ -113,7 +114,7 @@ namespace ContactManager.UI
             MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private ContactDatabase _contacts = new ContactDatabase();
+        private IContactDatabase _contacts = new FileContactDatabase("contacts.dat");
 
         private void OnContactEdit(object sender, EventArgs e)
         {
@@ -148,13 +149,13 @@ namespace ContactManager.UI
 
         private Contact GetSelectedContact()
         {
-            var value = _listContacts.SelectedItem;
+            //var value = _listContacts.SelectedItem;
 
             //C-style cast - don't do this
             //var game = (Game)value;
 
             //Preferred - null if not valid
-            var game = value as Contact;
+            //var game = value as Contact;
 
             //Type check
             //var game2 = (value is Contact) ? (Contact)value : null;
@@ -162,9 +163,9 @@ namespace ContactManager.UI
             return _listContacts.SelectedItem as Contact;
         }
 
-        private void OnContactSelected(object sender, EventArgs e)
+        private Contact OnContactSelected(object sender, EventArgs e)
         {
-
+            return null;
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -175,6 +176,31 @@ namespace ContactManager.UI
                 return;
             };
             base.OnFormClosing(e);
+        }
+
+        protected override void OnLoad( EventArgs e )
+        {
+            //base.OnLoad(e);
+            BindList();
+        }
+
+        private void OnContactDelete( object sender, EventArgs e )
+        {
+            var selected = GetSelectedContact();
+            if (selected == null)
+                return;
+
+            if (MessageBox.Show(this, $"Are your sure you want to delete {selected.Name}?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                return;
+            
+            try
+            {
+                _contacts.Delete(selected.Id);
+            } catch (Exception ex)
+            {
+                DisplayError(ex);
+            };
+            BindList();
         }
     }
 }

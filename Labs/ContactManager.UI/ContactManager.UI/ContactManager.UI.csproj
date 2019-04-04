@@ -99,6 +99,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ContactManager.FileSystem\ContactManager.FileSystem.csproj">
+      <Project>{cefd748c-4a91-47d2-aa49-1bd25ff2df3e}</Project>
+      <Name>ContactManager.FileSystem</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ContactManager\ContactManager.csproj">
       <Project>{f116389b-9129-4a5d-a46f-e70148cb24db}</Project>
       <Name>ContactManager</Name>
