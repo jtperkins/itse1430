@@ -35,8 +35,8 @@ namespace ContactManager
             if (String.IsNullOrEmpty(Subject))
                 items.Add(new ValidationResult("Subject is required.", new[] { nameof(Subject) }));
 
-            if (String.IsNullOrEmpty(Body))
-                items.Add(new ValidationResult("Body is required.", new[] { nameof(Body) }));
+            //if (String.IsNullOrEmpty(Body))
+                //items.Add(new ValidationResult("Body is required.", new[] { nameof(Body) }));
 
             return items;
         }

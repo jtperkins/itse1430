@@ -46,6 +46,18 @@ namespace ContactManager
             set { _email = value ?? ""; }
         }
 
+        private bool IsValidEmail( string source )
+        {
+            try
+            {
+                new System.Net.Mail.MailAddress(source);
+                return true;
+            } catch
+            { };
+
+            return false;
+        }
+
         public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             var items = new List<ValidationResult>();
@@ -53,14 +65,17 @@ namespace ContactManager
             if (String.IsNullOrEmpty(Name))
                 items.Add(new ValidationResult("Name is required.", new[] { nameof(Name) }));
 
-            char[] chars = Email.ToCharArray();
-            foreach (var character in chars)
-            {
-                //if (!character.Equals('@'))
-                //{
-                //    items.Add(new ValidationResult("Improper email format.", new[] { nameof(Email) }));
-                //}
-            }
+            if (!IsValidEmail(Email))
+                items.Add(new ValidationResult("invalid Email.", new[] { nameof(Email) }));
+
+            //char[] chars = Email.ToCharArray();
+            //foreach (var character in chars)
+            //{
+            //    //if (!character.Equals('@'))
+            //    //{
+            //    //    items.Add(new ValidationResult("Improper email format.", new[] { nameof(Email) }));
+            //    //}
+            //}
 
             return items;
         }

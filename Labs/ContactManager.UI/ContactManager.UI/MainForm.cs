@@ -88,13 +88,37 @@ namespace ContactManager.UI
             };
         }
 
+        private void OnSafeAddMessage( MessageForm form )
+        {
+            try
+            {
+                // adds Character from Character form
+                _messages.Add(form.Message);
+            } catch (NotImplementedException e)
+            {
+                //Rewriting an exception
+                throw new Exception("Not implemented yet", e);
+            } catch (Exception e)
+            {
+                //Log a message 
+
+                //Rethrow exception - wrong way
+                //throw e;
+                throw;
+            };
+        }
+
         private void BindList()
         {
             // clear all items in ListBox
             _listContacts.Items.Clear();
+            _listMessages.Items.Clear();
 
             // display the name of the Character
             _listContacts.DisplayMember = nameof(Contact.Name);
+            _listMessages.DisplayMember = nameof(Message.Subject);
+            _listMessages.DisplayMember = nameof(Message.Body);
+            
 
             // sort
             var items = _contacts.GetAll();
@@ -102,6 +126,7 @@ namespace ContactManager.UI
 
             // add all Contacts to ListBox
             _listContacts.Items.AddRange(items.ToArray());
+            _listMessages.Items.AddRange(_messages.ToArray());
         }
 
         private string GetName(Contact contact)
@@ -115,16 +140,18 @@ namespace ContactManager.UI
         }
 
         private IContactDatabase _contacts = new FileContactDatabase("contacts.dat");
+        private List<Message> _messages = new List<Message>(); 
+        
 
         private void OnContactEdit(object sender, EventArgs e)
         {
             var form = new ContactForm();
-
+            form.Text = "Edit Contact";
             var contact = GetSelectedContact();
             if (contact == null)
                 return;
 
-            //Game to edit
+            // Contact to edit
             form.Contact = contact;
 
             while (true)
@@ -202,5 +229,45 @@ namespace ContactManager.UI
             };
             BindList();
         }
+
+
+        private void OnSendMessage( object sender, EventArgs e )
+        {
+            var contact = GetSelectedContact();
+            if (contact == null)
+                return;
+
+            var form = new MessageForm();
+
+            form.Contact = contact;
+
+            while (true)
+            {
+                //Modal
+                if (form.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                //Add
+                try
+                {
+                    //Anything in here that raises an exception will
+                    //be sent to the catch block
+                    OnSafeAddMessage(form);
+                    break;
+                }
+                //catch (InvalidOperationException)
+                //{
+                //    MessageBox.Show(this, "Choose a better game.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
+                catch (Exception ex)
+                {
+                    //Recover from errors
+                    DisplayError(ex);
+                };
+            };
+            BindList();
+        }
+
+
     }
 }
