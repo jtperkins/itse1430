@@ -41,7 +41,7 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._listContacts = new System.Windows.Forms.ListBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this._listMessages = new System.Windows.Forms.ListBox();
+            this._listMessages = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -167,9 +167,10 @@
             // _listMessages
             // 
             this._listMessages.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._listMessages.FormattingEnabled = true;
             this._listMessages.Location = new System.Drawing.Point(0, 0);
+            this._listMessages.Multiline = true;
             this._listMessages.Name = "_listMessages";
+            this._listMessages.ReadOnly = true;
             this._listMessages.Size = new System.Drawing.Size(182, 426);
             this._listMessages.TabIndex = 0;
             // 
@@ -187,6 +188,7 @@
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -208,8 +210,8 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ListBox _listContacts;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox _listMessages;
         private System.Windows.Forms.ToolStripMenuItem messageToolStripMenuItem;
+        private System.Windows.Forms.TextBox _listMessages;
     }
 }
 

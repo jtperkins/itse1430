@@ -90,10 +90,12 @@ namespace ContactManager.UI
 
         private void OnSafeAddMessage( MessageForm form )
         {
+            MessageService sender = new MessageService();
+
             try
             {
                 // adds Character from Character form
-                _messages.Add(form.Message);
+                sender.Send(form.Message);
             } catch (NotImplementedException e)
             {
                 //Rewriting an exception
@@ -112,21 +114,42 @@ namespace ContactManager.UI
         {
             // clear all items in ListBox
             _listContacts.Items.Clear();
-            _listMessages.Items.Clear();
+            _listMessages.Text = "";
+
+            //if (_messages.Any())
+            //{
+            //    foreach (var item in _messages)
+            //    {
+            //        _sender.Send(item);
+            //    }
+            //}
 
             // display the name of the Character
             _listContacts.DisplayMember = nameof(Contact.Name);
-            _listMessages.DisplayMember = nameof(Message.Subject);
-            _listMessages.DisplayMember = nameof(Message.Body);
+
+
+            //_listMessages.DisplayMember = nameof(Message.Subject);
+            //_listMessages.DisplayMember = nameof(Message.Body);
             
 
             // sort
             var items = _contacts.GetAll();
             items = items.OrderBy(GetName);
 
+            var messages = _sender.GetAll();
+
             // add all Contacts to ListBox
             _listContacts.Items.AddRange(items.ToArray());
-            _listMessages.Items.AddRange(_messages.ToArray());
+
+            foreach (var item in messages)
+            {
+                _listMessages.Text += "To: " + item.Contact.Name + "\r\n";
+                _listMessages.Text += "Subject: " + item.Subject + "\r\n";
+                _listMessages.Text += "Body: " + item.Body + "\r\n";
+            }
+            
+            //_listMessages.Items.AddRange(messages.ToArray());
+            //_listMessages.Items.AddRange(_messages.ToArray());
         }
 
         private string GetName(Contact contact)
@@ -140,7 +163,8 @@ namespace ContactManager.UI
         }
 
         private IContactDatabase _contacts = new FileContactDatabase("contacts.dat");
-        private List<Message> _messages = new List<Message>(); 
+        private List<Message> _messages = new List<Message>();
+        private MessageService _sender = new MessageService();
         
 
         private void OnContactEdit(object sender, EventArgs e)
@@ -233,6 +257,7 @@ namespace ContactManager.UI
 
         private void OnSendMessage( object sender, EventArgs e )
         {
+            
             var contact = GetSelectedContact();
             if (contact == null)
                 return;
@@ -252,7 +277,8 @@ namespace ContactManager.UI
                 {
                     //Anything in here that raises an exception will
                     //be sent to the catch block
-                    OnSafeAddMessage(form);
+                    //OnSafeAddMessage(form);
+                    _sender.Send(form.Message);
                     break;
                 }
                 //catch (InvalidOperationException)
