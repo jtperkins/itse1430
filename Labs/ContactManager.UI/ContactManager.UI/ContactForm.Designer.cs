@@ -42,7 +42,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 29);
+            this.label1.Location = new System.Drawing.Point(19, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
@@ -51,7 +51,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 81);
+            this.label2.Location = new System.Drawing.Point(22, 81);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 1;
@@ -59,7 +59,7 @@
             // 
             // _txtName
             // 
-            this._txtName.Location = new System.Drawing.Point(112, 29);
+            this._txtName.Location = new System.Drawing.Point(94, 29);
             this._txtName.Name = "_txtName";
             this._txtName.Size = new System.Drawing.Size(141, 20);
             this._txtName.TabIndex = 2;
@@ -67,7 +67,7 @@
             // 
             // _txtEmail
             // 
-            this._txtEmail.Location = new System.Drawing.Point(112, 81);
+            this._txtEmail.Location = new System.Drawing.Point(94, 81);
             this._txtEmail.Name = "_txtEmail";
             this._txtEmail.Size = new System.Drawing.Size(141, 20);
             this._txtEmail.TabIndex = 3;
@@ -75,7 +75,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(57, 123);
+            this.button1.Location = new System.Drawing.Point(39, 123);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -85,7 +85,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(150, 123);
+            this.button2.Location = new System.Drawing.Point(132, 123);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 5;
@@ -103,7 +103,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(292, 174);
+            this.ClientSize = new System.Drawing.Size(264, 174);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this._txtEmail);
@@ -111,7 +111,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(280, 213);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(280, 213);
             this.Name = "ContactForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Contact";

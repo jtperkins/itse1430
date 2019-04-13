@@ -91,5 +91,18 @@ namespace ContactManager.UI
                 _error.SetError(tb, "");
         }
 
+        private void OnValidateBody(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Body is required.");
+                e.Cancel = true;
+            }
+            else
+                _error.SetError(tb, "");
+        }
+
     }
 }
