@@ -288,6 +288,16 @@ namespace ContactManager.UI
             BindList();
         }
 
+        private void OnContactDoubleClicked(object sender, EventArgs e)
+        {
 
+            var lb = sender as ListBox;
+
+
+            if (lb.SelectedItem != null)
+            {
+                OnContactEdit(sender, e);
+            }
+        }
     }
 }

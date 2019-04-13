@@ -147,6 +147,7 @@
             this._listContacts.Name = "_listContacts";
             this._listContacts.Size = new System.Drawing.Size(170, 426);
             this._listContacts.TabIndex = 1;
+            this._listContacts.DoubleClick += new System.EventHandler(this.OnContactDoubleClicked);
             // 
             // splitContainer1
             // 
