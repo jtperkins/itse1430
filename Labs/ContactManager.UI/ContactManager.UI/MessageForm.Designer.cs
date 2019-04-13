@@ -93,7 +93,6 @@
             this._txtBody.Name = "_txtBody";
             this._txtBody.Size = new System.Drawing.Size(240, 82);
             this._txtBody.TabIndex = 5;
-            this._txtBody.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateBody);
             // 
             // button1
             // 
