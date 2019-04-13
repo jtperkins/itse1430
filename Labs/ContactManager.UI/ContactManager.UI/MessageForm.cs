@@ -21,17 +21,29 @@ namespace ContactManager.UI
 {
     public partial class MessageForm : Form
     {
+        /// <summary>
+        /// Contact the Message is to be sent to
+        /// </summary>
         public Contact Contact { get; set; }
+        /// <summary>
+        /// Message to be sent
+        /// </summary>
         public Message Message { get; set; }
+
         public MessageForm()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// saves the data in the form
+        /// </summary>
+        /// <returns>the Message thats created from user input</returns>
         private Message SaveData()
         {
             var message = new Message();
 
+            /// grab the info from form
             message.Contact = Contact;
             message.Subject = _txtSubject.Text;
             message.Body = _txtBody.Text;
@@ -39,12 +51,18 @@ namespace ContactManager.UI
             return message;
         }
 
+        /// <summary>
+        /// load contact to be edited in appropriate fields
+        /// </summary>
         private void LoadData( Contact contact )
         {
             _txtContact.Text = contact.Name;
             _txtEmail.Text = contact.Email;
         }
 
+        /// <summary>
+        /// load the Contact information into appropirate field on Form load
+        /// </summary>
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
@@ -53,19 +71,23 @@ namespace ContactManager.UI
                 LoadData(Contact);
         }
 
+        /// <summary>
+        /// EventHandler for Save button
+        /// </summary>
         private void OnSave( object sender, EventArgs e )
         {
             if (!ValidateChildren())
                 return;
 
-
             var message = SaveData();
 
+            // validation
             try
             {
                 ObjectValidator.Validate(message);
             } catch (ValidationException ex)
             {
+                // recover
                 DisplayError(ex);
                 return;
             }
@@ -75,17 +97,24 @@ namespace ContactManager.UI
             Close();
         }
 
+        /// <summary>
+        /// EventHandler for cancel button. closes form without validation
+        /// </summary>
         private void OnCancel( object sender, EventArgs e )
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
+        // diaplsy any given Exceptions Error to user
         private void DisplayError( Exception ex )
         {
             MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// proper ErrorProvider validation warning
+        /// </summary>
         private void OnValidateSubject(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var tb = sender as TextBox;
@@ -98,8 +127,5 @@ namespace ContactManager.UI
             else
                 _error.SetError(tb, "");
         }
-
-
-
     }
 }
