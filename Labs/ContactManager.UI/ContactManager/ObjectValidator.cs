@@ -1,4 +1,12 @@
-﻿using System;
+﻿/**********************************************************
+ * 
+ * Taylor Perkins
+ * ITSE 1430
+ * 4/13/2019
+ * 
+ * ********************************************************/
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;

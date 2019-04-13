@@ -1,4 +1,12 @@
-﻿using System.Collections.Generic;
+﻿/**********************************************************
+ * 
+ * Taylor Perkins
+ * ITSE 1430
+ * 4/13/2019
+ * 
+ * ********************************************************/
+
+using System.Collections.Generic;
 
 namespace ContactManager
 {
