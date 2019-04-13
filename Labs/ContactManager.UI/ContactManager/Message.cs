@@ -17,9 +17,15 @@ namespace ContactManager
 {
     public class Message : IValidatableObject
     {
+        /// <summary>
+        /// The Contact the message is to be sent to. Required
+        /// </summary>
         public Contact Contact { get; set; }
 
         private string _subject = "";
+        /// <summary>
+        /// the Subject of the Message
+        /// </summary>
         public string Subject
         {
             get { return _subject ?? ""; }
@@ -27,12 +33,18 @@ namespace ContactManager
         }
 
         private string _body = "";
+        /// <summary>
+        /// the body is the Message itself
+        /// </summary>
         public string Body
         {
             get { return _body ?? ""; }
             set { _body = value ?? ""; }
         }
 
+        /// <summary>
+        /// Validation done by ObjectValidator
+        /// </summary>
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var items = new List<ValidationResult>();
@@ -42,9 +54,6 @@ namespace ContactManager
 
             if (String.IsNullOrEmpty(Subject))
                 items.Add(new ValidationResult("Subject is required.", new[] { nameof(Subject) }));
-
-            //if (String.IsNullOrEmpty(Body))
-                //items.Add(new ValidationResult("Body is required.", new[] { nameof(Body) }));
 
             return items;
         }
