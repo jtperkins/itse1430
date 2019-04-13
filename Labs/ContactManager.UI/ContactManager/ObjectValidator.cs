@@ -17,6 +17,10 @@ namespace ContactManager
 {
     public static class ObjectValidator
     {
+        /// <summary>
+        /// helper method to make Validation easier
+        /// </summary>
+        /// <param name="value">the object that implements IValidatableObject</param>
         public static void Validate( IValidatableObject value )
         {
             Validator.ValidateObject(value, new ValidationContext(value));
