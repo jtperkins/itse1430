@@ -22,10 +22,18 @@ namespace ContactManager
         /// </summary>
         public int Id { get; set; }
 
+        /// <summary>
+        /// blank constructor
+        /// </summary>
         public Contact()
         {
-
         }
+
+        /// <summary>
+        /// Constructor accepts the Name and Email of Contact
+        /// </summary>
+        /// <param name="name">name of the Contact</param>
+        /// <param name="email">Email of the Contact</param>
         public Contact(string name, string email)
         {
             this.Name = name;
@@ -54,6 +62,11 @@ namespace ContactManager
             set { _email = value ?? ""; }
         }
 
+        /// <summary>
+        /// rchecks wether an email is valid. not true validation
+        /// </summary>
+        /// <param name="source">email to be validated</param>
+        /// <returns>true if valid</returns>
         private bool IsValidEmail( string source )
         {
             try
@@ -66,6 +79,9 @@ namespace ContactManager
             return false;
         }
 
+        /// <summary>
+        /// the validation checked by ObjectValidator. returns IEnumberable of the errors in validation
+        /// </summary>
         public IEnumerable<ValidationResult> Validate( ValidationContext validationContext )
         {
             var items = new List<ValidationResult>();
@@ -75,15 +91,6 @@ namespace ContactManager
 
             if (!IsValidEmail(Email))
                 items.Add(new ValidationResult("invalid Email.", new[] { nameof(Email) }));
-
-            //char[] chars = Email.ToCharArray();
-            //foreach (var character in chars)
-            //{
-            //    //if (!character.Equals('@'))
-            //    //{
-            //    //    items.Add(new ValidationResult("Improper email format.", new[] { nameof(Email) }));
-            //    //}
-            //}
 
             return items;
         }
