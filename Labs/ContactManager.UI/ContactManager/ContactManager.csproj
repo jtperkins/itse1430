@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContactDatabase.cs" />
     <Compile Include="IMessageService.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="IContactDatabase.cs" />
