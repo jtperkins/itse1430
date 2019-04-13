@@ -17,6 +17,9 @@ namespace ContactManager.UI
 {
     public class MessageService : IMessageService
     {
+        /// <summary>
+        /// "sends" the Message. just adds it to a list of Message, to be rewritten everytime 
+        /// </summary>
         public void Send( Message message )
         {
             if (message == null)
@@ -26,6 +29,10 @@ namespace ContactManager.UI
 
         }
 
+        /// <summary>
+        /// reutnrs an IEnumerable of all the Messages in List
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Message> GetAll()
         {
             foreach (var message in _messages)
