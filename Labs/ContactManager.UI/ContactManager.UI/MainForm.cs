@@ -88,26 +88,19 @@ namespace ContactManager.UI
             };
         }
 
-        private void OnSafeAddMessage( MessageForm form )
+        private void OnSafeSend( MessageForm form )
         {
+            // i think you wanted us to do the way where we do 
             MessageService sender = new MessageService();
 
             try
             {
-                // adds Character from Character form
+                // "send message"
                 sender.Send(form.Message);
-            } catch (NotImplementedException e)
+            } catch (ArgumentNullException e)
             {
-                //Rewriting an exception
-                throw new Exception("Not implemented yet", e);
-            } catch (Exception e)
-            {
-                //Log a message 
-
-                //Rethrow exception - wrong way
-                //throw e;
-                throw;
-            };
+                
+            }
         }
 
         private void BindList()
@@ -145,7 +138,7 @@ namespace ContactManager.UI
             {
                 _listMessages.Text += "To: " + item.Contact.Name + "\r\n";
                 _listMessages.Text += "Subject: " + item.Subject + "\r\n";
-                _listMessages.Text += "Body: " + item.Body + "\r\n";
+                _listMessages.Text += "Body: " + item.Body + "\r\n\r\n";
             }
             
             //_listMessages.Items.AddRange(messages.ToArray());

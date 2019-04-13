@@ -10,7 +10,11 @@ namespace ContactManager.UI
     {
         public void Send( Message message )
         {
-            _messages.Add(message);
+            if (message == null)
+                throw new ArgumentNullException();
+            else
+                _messages.Add(message);
+
         }
 
         public IEnumerable<Message> GetAll()
