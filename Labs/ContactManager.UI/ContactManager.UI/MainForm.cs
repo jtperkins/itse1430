@@ -136,7 +136,7 @@ namespace ContactManager.UI
 
             foreach (var item in messages)
             {
-                _listMessages.Text += "To: " + item.Contact.Name + "\r\n";
+                _listMessages.Text += "To: " + item.Contact.Email + "\r\n";
                 _listMessages.Text += "Subject: " + item.Subject + "\r\n";
                 _listMessages.Text += "Body: " + item.Body + "\r\n\r\n";
             }
