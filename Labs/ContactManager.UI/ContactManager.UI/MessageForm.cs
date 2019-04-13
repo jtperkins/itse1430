@@ -77,5 +77,19 @@ namespace ContactManager.UI
         {
             MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+        private void OnValidateSubject(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Subject is required.");
+                e.Cancel = true;
+            }
+            else
+                _error.SetError(tb, "");
+        }
+
     }
 }
