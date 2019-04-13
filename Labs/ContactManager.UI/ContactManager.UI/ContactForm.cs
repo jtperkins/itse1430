@@ -21,6 +21,9 @@ namespace ContactManager.UI
 {
     public partial class ContactForm : Form
     {
+        /// <summary>
+        /// Contact to be created or loaded into UI
+        /// </summary>
         public Contact Contact { get; set; }
 
         public ContactForm()
@@ -28,14 +31,18 @@ namespace ContactManager.UI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// OnSave when the user clicks the save button, create the Contact
+        /// </summary>
         private void OnSave(object sender, EventArgs e)
         {
             if (!ValidateChildren())
                 return;
 
-
+            // actually grab the data and "save" it
             var contact = SaveData();
 
+            // validation
             try
             {
                 ObjectValidator.Validate(contact);
@@ -52,6 +59,10 @@ namespace ContactManager.UI
 
         }
 
+        /// <summary>
+        /// actually "saves" the data, creating and returning a new Contact
+        /// </summary>
+        /// <returns>reutnrs a new Contact based on the user input</returns>
         private Contact SaveData()
         {
             var contact = new Contact();
@@ -62,18 +73,27 @@ namespace ContactManager.UI
             return contact;
         }
 
+        /// <summary>
+        /// loads the contact information in the the appropriate fields
+        /// </summary>
         private void LoadData(Contact contact)
         {
             _txtName.Text = contact.Name;
             _txtEmail.Text = contact.Email;
         }
 
+        /// <summary>
+        /// cancel button for the user to quit with no validation
+        /// </summary>
         private void OnCancel(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
         }
 
+        /// <summary>
+        /// override of forms OnLoad, so we can load appropriate information OnEdit
+        /// </summary>
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -82,6 +102,9 @@ namespace ContactManager.UI
                 LoadData(Contact);
         }
 
+        /// <summary>
+        /// proper validation to set the ErrorProvider on leaving Name field
+        /// </summary>
         private void OnValidateName(object sender, CancelEventArgs e)
         {
             var tb = sender as TextBox;
@@ -93,6 +116,9 @@ namespace ContactManager.UI
                 _error.SetError(tb, "");
         }
 
+        /// <summary>
+        /// proper validation to set the ErrorProvider on leaving Email field
+        /// </summary>
         private void OnValidateEmail(object sender, CancelEventArgs e)
         {
             var tb = sender as TextBox;
@@ -110,6 +136,9 @@ namespace ContactManager.UI
                 
         }
 
+        /// <summary>
+        /// checks the validity of the email. not true validation, it seems to only check for an @ symbol
+        /// </summary>
         private bool IsValidEmail(string source)
         {
             try
