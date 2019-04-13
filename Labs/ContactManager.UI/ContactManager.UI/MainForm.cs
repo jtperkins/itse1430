@@ -253,7 +253,11 @@ namespace ContactManager.UI
             
             var contact = GetSelectedContact();
             if (contact == null)
+            {
+                MessageBox.Show(this, "No contact selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+                
 
             var form = new MessageForm();
 
