@@ -17,6 +17,10 @@ namespace ContactManager.FileSystem
 {
     public class FileContactDatabase : IContactDatabase
     {
+        /// <summary>
+        /// takes a string representing the name of a file to write to. this represents a "database" via external file.
+        /// </summary>
+        /// <param name="fileName">the name of the file to write to</param>
         public FileContactDatabase( string fileName )
         {
             if (fileName == null)
@@ -27,7 +31,10 @@ namespace ContactManager.FileSystem
             _fileName = fileName;
         }
 
-        private readonly string _fileName;
+        /// <summary>
+        /// adds a Contact to the file "database"
+        /// </summary>
+        /// <param name="contact">Contact to be added</param>
         public Contact Add( Contact contact )
         {
             var contacts = GetAll().ToList();
@@ -45,6 +52,10 @@ namespace ContactManager.FileSystem
             return contact;
         }
 
+        /// <summary>
+        /// deletes the Contact by id
+        /// </summary>
+        /// <param name="id">id of the Contact to be deleted</param>
         public void Delete( int id )
         {
             var contacts = GetAll().ToList();
@@ -58,6 +69,10 @@ namespace ContactManager.FileSystem
 
         }
 
+        /// <summary>
+        /// returns a Contact in the database via id
+        /// </summary>
+        /// <param name="id">id of the contact to get</param>
         public Contact Get( int id )
         {
             if (!File.Exists(_fileName))
@@ -77,6 +92,10 @@ namespace ContactManager.FileSystem
             }
         }
 
+        /// <summary>
+        /// returns an IEnumerable of Contacts in the database
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Contact> GetAll()
         {
             if (File.Exists(_fileName))
@@ -91,6 +110,9 @@ namespace ContactManager.FileSystem
             }
         }
 
+        /// <summary>
+        /// loads the contacts from the file "database"
+        /// </summary>
         private Contact LoadContact( string line )
         {
             if (String.IsNullOrEmpty(line))
@@ -108,19 +130,29 @@ namespace ContactManager.FileSystem
             };
         }
 
+        /// <summary>
+        /// writes the Contact information in the file "database"
+        /// </summary>
+        /// <param name="contact">Contact to be written to file</param>
+        /// <returns></returns>
         private string SaveContact(Contact contact)
         {
             return String.Join(",", contact.Id, contact.Name, contact.Email);
         }
 
+        /// <summary>
+        /// writes all the contacts to the file "database"
+        /// </summary>
         private void SaveContacts ( IEnumerable<Contact> contacts)
         {
-            // use LINQ Lukle
             var lines = from contact in contacts
                         select SaveContact(contact);
             File.WriteAllLines(_fileName, lines);
         }
 
+        /// <summary>
+        /// Takes a Contact and id of the contact and updates its properties. Returns updated Contact
+        /// </summary>
         public Contact Update( int id, Contact contact )
         {
             var contacts = GetAll().ToList();
@@ -137,5 +169,10 @@ namespace ContactManager.FileSystem
 
             return contact;
         }
+
+        /// <summary>
+        /// the name of the file. dont want to accidentally change it
+        /// </summary>
+        private readonly string _fileName;
     }
 }
