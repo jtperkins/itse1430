@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this._txtName = new System.Windows.Forms.TextBox();
             this._txtEmail = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this._error = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._error)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -60,6 +63,7 @@
             this._txtName.Name = "_txtName";
             this._txtName.Size = new System.Drawing.Size(141, 20);
             this._txtName.TabIndex = 2;
+            this._txtName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // _txtEmail
             // 
@@ -67,6 +71,7 @@
             this._txtEmail.Name = "_txtEmail";
             this._txtEmail.Size = new System.Drawing.Size(141, 20);
             this._txtEmail.TabIndex = 3;
+            this._txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateEmail);
             // 
             // button1
             // 
@@ -88,6 +93,12 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.OnCancel);
             // 
+            // _error
+            // 
+            this._error.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._error.ContainerControl = this;
+            this._error.RightToLeft = true;
+            // 
             // ContactForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -104,6 +115,7 @@
             this.Name = "ContactForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create Contact";
+            ((System.ComponentModel.ISupportInitialize)(this._error)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,5 +129,6 @@
         private System.Windows.Forms.TextBox _txtEmail;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ErrorProvider _error;
     }
 }

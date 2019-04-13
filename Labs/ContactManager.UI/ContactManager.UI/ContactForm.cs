@@ -34,6 +34,7 @@ namespace ContactManager.UI
             }
             catch (ValidationException ex)
             {
+                MessageBox.Show(this, "Email not valid", "Error", MessageBoxButtons.OK);
                 return;
             }
 
@@ -72,5 +73,47 @@ namespace ContactManager.UI
             if (Contact != null)
                 LoadData(Contact);
         }
+
+        private void OnValidateName(object sender, CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Name is required");
+            }
+            else
+                _error.SetError(tb, "");
+        }
+
+        private void OnValidateEmail(object sender, CancelEventArgs e)
+        {
+            var tb = sender as TextBox;
+            if (tb.Text.Length == 0)
+            {
+                _error.SetError(tb, "Email is required");
+            }
+            else
+            {
+                if (IsValidEmail(tb.Text))
+                    _error.SetError(tb, "");
+                else
+                    _error.SetError(tb, "Invalid email format");
+            }
+                
+        }
+
+        private bool IsValidEmail(string source)
+        {
+            try
+            {
+                new System.Net.Mail.MailAddress(source);
+                return true;
+            }
+            catch
+            { };
+
+            return false;
+        }
+
     }
 }
