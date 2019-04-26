@@ -39,9 +39,46 @@ namespace Nile.Windows
                 return;
 
             //TODO: Handle errors
-            //Save product
-            _database.Add(child.Product);
+            while (true)
+            {
+                //Modal
+                if (child.ShowDialog(this) != DialogResult.OK)
+                    return;
+                //Add
+                try
+                {
+                //Anything in here that raises an exception will
+                //be sent to the catch block
+                    OnSafeAdd(child);
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    //Recover from errors
+                    DisplayError(ex);
+                };
+            };
+
+
             UpdateList();
+        }
+
+        /// <summary>
+        /// safely add the Contact to the database
+        /// </summary>
+        /// <param name="form"></param>
+        private void OnSafeAdd(ProductDetailForm form)
+        {
+            try
+            {
+                //Save product
+                _database.Add(form.Product);
+            }
+            catch (Exception e)
+            {
+                //recover
+                DisplayError(e);
+            };
         }
 
         private void OnProductEdit( object sender, EventArgs e )
@@ -146,6 +183,11 @@ namespace Nile.Windows
             var form = new AboutBox();
 
             form.ShowDialog();
+        }
+
+        private void DisplayError(Exception ex)
+        {
+            MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }
