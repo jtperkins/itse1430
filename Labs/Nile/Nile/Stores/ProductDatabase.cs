@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Nile.Stores
 {
@@ -15,16 +16,19 @@ namespace Nile.Stores
         /// <returns>The added product.</returns>
         public Product Add ( Product product )
         {
-            //Check arguments
+            //Validate input
             if (product == null)
-                throw new ArgumentNullException("Invalid product");
+                throw new ArgumentNullException(nameof(product));
 
-
-
-            //Validate product
+            //Game must be valid            
+            //new ObjectValidator().Validate(game);
             Validator.ValidateObject(product, new ValidationContext(product));
 
-            //Emulate database by storing copy
+            //Game names must be unique
+            var existing = FindByName(product.Name);
+            if (existing != null)
+                throw new Exception("Game must be unique.");
+
             return AddCore(product);
         }
 
@@ -33,8 +37,8 @@ namespace Nile.Stores
         public Product Get ( int id )
         {
             //Check arguments
-            if (id < 0)
-                throw new ArgumentOutOfRangeException("Invalid Id.");
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
             return GetCore(id);
         }
@@ -48,31 +52,47 @@ namespace Nile.Stores
         
         /// <summary>Removes the product.</summary>
         /// <param name="id">The product to remove.</param>
-        public void Remove ( int id )
+        public void Delete ( int id )
         {
             //Check arguments
-            if (id < 0)
-                throw new ArgumentOutOfRangeException("Invalid Id.");
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
 
-            RemoveCore(id);
+            DeleteCore(id);
         }
         
         /// <summary>Updates a product.</summary>
         /// <param name="product">The product to update.</param>
         /// <returns>The updated product.</returns>
-        public Product Update ( Product product )
+        public Product Update ( int id, Product product )
         {
-            //Check arguments
+            //Validate
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be > 0.");
             if (product == null)
-                throw new ArgumentNullException("Invalid product");
+                throw new ArgumentNullException(nameof(product));
 
-            //Validate product
+            //validate
             Validator.ValidateObject(product, new ValidationContext(product));
 
-            //Get existing product
-            var existing = GetCore(product.Id);
+            var existing = GetCore(id);
+            if (existing == null)
+                throw new Exception("Game does not exist.");
+
+            //Game names must be unique            
+            var sameName = FindByName(product.Name);
+            if (sameName != null && sameName.Id != id)
+                throw new Exception("Game must be unique.");
 
             return UpdateCore(existing, product);
+        }
+
+        protected virtual Product FindByName(string name)
+        {
+            return (from product in GetAllCore()
+                    where String.Compare(product.Name, name, true) == 0
+                    //orderby game.Name, game.Id descending
+                    select product).FirstOrDefault();
         }
 
 
@@ -82,7 +102,7 @@ namespace Nile.Stores
 
         protected abstract IEnumerable<Product> GetAllCore();
 
-        protected abstract void RemoveCore( int id );
+        protected abstract void DeleteCore( int id );
 
         protected abstract Product UpdateCore( Product existing, Product newItem );
 

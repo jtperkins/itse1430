@@ -8,9 +8,10 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Nile.Windows</RootNamespace>
     <AssemblyName>Nile.Windows</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -80,6 +81,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Nile.Stores.Sql\Nile.Stores.Sql.csproj">
+      <Project>{20a3f0dd-2fa4-461c-af90-b1ec4c5902ea}</Project>
+      <Name>Nile.Stores.Sql</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NileDatabase\NileDatabase.sqlproj">
       <Project>{56c0adf1-90e3-4e66-998c-20fe50d88a2d}</Project>
       <Name>NileDatabase</Name>

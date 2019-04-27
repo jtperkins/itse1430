@@ -76,7 +76,7 @@ namespace Nile.Windows
                 Validator.ValidateObject(product, new ValidationContext(product));
             } catch(ValidationException ex)
             {
-                DisplayError(ex);
+                MessageBox.Show(this, "Product not valid.", "Error", MessageBoxButtons.OK);
             }
             
 
@@ -107,10 +107,10 @@ namespace Nile.Windows
                 _errors.SetError(_txtPrice, "");
         }
 
-        private void DisplayError(Exception ex)
-        {
-            MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        //private void DisplayError(Exception ex)
+        //{
+        //    MessageBox.Show(this, ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
 
         #endregion
 

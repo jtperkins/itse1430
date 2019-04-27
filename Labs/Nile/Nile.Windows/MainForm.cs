@@ -1,8 +1,20 @@
 /*
  * ITSE 1430
  */
+using Nile.Stores;
+using Nile.Stores.Sql;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Configuration;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data.SqlClient;
+
 
 namespace Nile.Windows
 {
@@ -15,10 +27,14 @@ namespace Nile.Windows
             InitializeComponent();
         }
         #endregion
+        private static String _connectionString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=NileDatabase;Integrated Security=SSPI;";
 
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
+
+            //var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"];
+            _database = new SqlDatabase(_connectionString);//connString.ConnectionString);
 
             _gridProducts.AutoGenerateColumns = false;
 
@@ -144,7 +160,7 @@ namespace Nile.Windows
             //Handle errors
             try
             {
-                _database.Remove(product.Id);
+                _database.Delete(product.Id);
             } catch (Exception ex)
             {
                 //Recover
@@ -168,7 +184,7 @@ namespace Nile.Windows
             //Save product
             try
             {
-                _database.Update(child.Product);
+                _database.Update(child.Product.Id, child.Product);
             } catch (Exception ex)
             {
                 DisplayError(ex);
@@ -198,7 +214,7 @@ namespace Nile.Windows
             
         }
 
-        private readonly IProductDatabase _database = new Nile.Stores.MemoryProductDatabase();
+        private ProductDatabase _database = new SqlDatabase(_connectionString);
         #endregion
 
         private void OnHelpAbout(object sender, EventArgs e)

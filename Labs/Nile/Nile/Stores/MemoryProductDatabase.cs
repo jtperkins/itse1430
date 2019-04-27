@@ -49,7 +49,7 @@ namespace Nile.Stores
 
         /// <summary>Removes the product.</summary>
         /// <param name="product">The product to remove.</param>
-        protected override void RemoveCore ( int id )
+        protected override void DeleteCore ( int id )
         {
             var product = FindProduct(id);
             if (product != null)
