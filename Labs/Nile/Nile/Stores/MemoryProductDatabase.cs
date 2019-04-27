@@ -15,12 +15,17 @@ namespace Nile.Stores
         protected override Product AddCore ( Product product )
         {
             var newProduct = CopyProduct(product);
-            _products.Add(newProduct);
+
 
             if (newProduct.Id <= 0)
                 newProduct.Id = _nextId++;
             else if (newProduct.Id >= _nextId)
                 _nextId = newProduct.Id + 1;
+
+             CheckName(product);
+
+            _products.Add(newProduct);
+
 
             return CopyProduct(newProduct);
         }
@@ -56,11 +61,14 @@ namespace Nile.Stores
         /// <returns>The updated product.</returns>
         protected override Product UpdateCore ( Product existing, Product product )
         {
+            CheckName(product);
+
             //Replace 
             existing = FindProduct(product.Id);
             _products.Remove(existing);
             
             var newProduct = CopyProduct(product);
+            
             _products.Add(newProduct);
 
             return CopyProduct(newProduct);
@@ -88,6 +96,22 @@ namespace Nile.Stores
             };
 
             return null;
+        }
+
+        private void CheckName(Product product)
+        {
+            foreach (var item in _products)
+            {
+
+                if (item.Name.CompareTo(product.Name) == 0)
+                {
+                    if (item.Id != product.Id)
+                        throw new ArgumentException("Product must not have the same name");
+                }
+
+
+            }
+
         }
 
         private List<Product> _products = new List<Product>();

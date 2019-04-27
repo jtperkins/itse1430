@@ -19,6 +19,8 @@ namespace Nile.Stores
             if (product == null)
                 throw new ArgumentNullException("Invalid product");
 
+
+
             //Validate product
             Validator.ValidateObject(product, new ValidationContext(product));
 
@@ -72,6 +74,7 @@ namespace Nile.Stores
 
             return UpdateCore(existing, product);
         }
+
 
         #region Protected Members
 

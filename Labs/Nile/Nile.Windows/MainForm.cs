@@ -42,8 +42,8 @@ namespace Nile.Windows
             while (true)
             {
                 //Modal
-                if (child.ShowDialog(this) != DialogResult.OK)
-                    return;
+                //if (child.ShowDialog(this) == DialogResult.OK)
+                //    return;
                 //Add
                 try
                 {
