@@ -94,7 +94,7 @@ namespace Nile.Stores.Sql
             using (var conn = GetConnection())
             {
                 var cmd = conn.CreateCommand();
-                cmd.CommandText = "GetProduct";
+                cmd.CommandText = "GetAllProducts";
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 conn.Open();
@@ -108,7 +108,8 @@ namespace Nile.Stores.Sql
                         {
                             Id = gameId,
                             Name = GetString(reader, "Name"),
-                            Description = GetString(reader, "Description"),
+                            Description = GetString(reader, "description"),
+                        
                             Price = reader.GetFieldValue<decimal>(3),
                         };
                     };
