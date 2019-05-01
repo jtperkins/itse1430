@@ -48,6 +48,7 @@ namespace Nile.Stores
         public IEnumerable<Product> GetAll ()
         {
             return GetAllCore();
+                    
         }
         
         /// <summary>Removes the product.</summary>
@@ -91,7 +92,7 @@ namespace Nile.Stores
         {
             return (from product in GetAllCore()
                     where String.Compare(product.Name, name, true) == 0
-                    //orderby game.Name, game.Id descending
+                    orderby product.Name, product.Id descending
                     select product).FirstOrDefault();
         }
 

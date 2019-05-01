@@ -76,6 +76,7 @@ namespace Nile.Stores.Sql
             if (table != null)
             {
                 return from r in table.Rows.OfType<DataRow>()
+                       orderby r["Name"]
                        select new Product()
                        {
                            Id = Convert.ToInt32(r[0]),  //Ordinal, convert
