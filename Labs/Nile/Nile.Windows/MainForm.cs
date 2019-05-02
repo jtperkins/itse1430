@@ -191,16 +191,15 @@ namespace Nile.Windows
             if (child.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            
-            //Save product
-            try
+                //Save product
+                try
             {
-                _database.Update(child.Product.Id, child.Product);
+                _database.Update(product.Id, child.Product);
             } catch (Exception ex)
             {
                 DisplayError(ex);
             }
-            
+
             UpdateList();
         }
 

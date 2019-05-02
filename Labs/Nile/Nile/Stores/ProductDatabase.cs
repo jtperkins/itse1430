@@ -83,13 +83,14 @@ namespace Nile.Stores
             Validator.ValidateObject(product, new ValidationContext(product));
 
             var existing = GetCore(id);
+            Console.WriteLine(existing.Name + ", " + existing.Id + ", " + existing.Price);
             if (existing == null)
-                throw new Exception("Game does not exist.");
+                throw new Exception("Product does not exist.");
 
             //Game names must be unique            
             var sameName = FindByName(product.Name);
             if (sameName != null && sameName.Id != id)
-                throw new Exception("Game must be unique.");
+                throw new Exception("Product must be unique.");
 
             return UpdateCore(existing, product);
         }

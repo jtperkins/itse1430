@@ -106,6 +106,7 @@ namespace Nile.Stores.Sql
                 cmd.CommandText = "GetAllProducts";
                 cmd.CommandType = CommandType.StoredProcedure;
 
+
                 conn.Open();
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
@@ -117,9 +118,11 @@ namespace Nile.Stores.Sql
                         {
                             Id = gameId,
                             Name = GetString(reader, "Name"),
-                            Description = GetString(reader, "description"),
+                            Description = GetString(reader, "Description"),
                         
-                            Price = reader.GetFieldValue<decimal>(3),
+                            Price = reader.GetFieldValue<decimal>(reader.GetOrdinal("Price")),
+                            IsDiscontinued = Convert.ToBoolean(reader.GetBoolean(reader.GetOrdinal("IsDiscontinued"))),
+                            
                         };
                     };
                 };
@@ -175,7 +178,7 @@ namespace Nile.Stores.Sql
                 //Add parameter 2 - quick way when you just need type/value
                 cmd.Parameters.AddWithValue("@description", newItem.Description);
                 cmd.Parameters.AddWithValue("@price", newItem.Price);
-                cmd.Parameters.AddWithValue("@id", existing.Id);
+                cmd.Parameters.AddWithValue("@id", newItem.Id);
 
                 //No results
                 cmd.ExecuteNonQuery();
