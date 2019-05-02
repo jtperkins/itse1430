@@ -33,18 +33,23 @@ namespace Nile.Windows
             InitializeComponent();
         }
         #endregion
-        private static String _connectionString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=NileDatabase;Integrated Security=SSPI;";
+        //private static String _connectionString = "Data Source=(localdb)\\ProjectsV13;Initial Catalog=NileDatabase;Integrated Security=SSPI;";
 
         protected override void OnLoad( EventArgs e )
         {
             base.OnLoad(e);
 
-            //var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"];
-            _database = new SqlDatabase(_connectionString);//connString.ConnectionString);
+            _database = new SqlDatabase(GetConnection());
 
             _gridProducts.AutoGenerateColumns = false;
 
             UpdateList();
+        }
+
+        private string GetConnection()
+        {
+            var connString = ConfigurationManager.ConnectionStrings["ProductDatabase"];
+            return connString.ConnectionString;
         }
 
         #region Event Handlers
@@ -220,7 +225,7 @@ namespace Nile.Windows
             
         }
 
-        private ProductDatabase _database = new SqlDatabase(_connectionString);
+        private ProductDatabase _database;
         #endregion
 
         private void OnHelpAbout(object sender, EventArgs e)
