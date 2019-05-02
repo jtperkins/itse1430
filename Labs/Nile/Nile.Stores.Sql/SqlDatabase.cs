@@ -45,6 +45,7 @@ namespace Nile.Stores.Sql
                 //Add parameter 2 - quick way when you just need type/value
                 cmd.Parameters.AddWithValue("@description", product.Description);
                 cmd.Parameters.AddWithValue("@price", product.Price);
+                cmd.Parameters.AddWithValue("@isdiscontinued", product.IsDiscontinued);
 
                 // (int)cmd.ExecuteScalar();
                 // cmd.ExecuteScalar() as int;  //reference types 
@@ -91,7 +92,8 @@ namespace Nile.Stores.Sql
                            Id = Convert.ToInt32(r[0]),  //Ordinal, convert
                            Name = r["Name"].ToString(), //By name, convert
                            Description = r.IsNull("description") ? "" : r["description"].ToString(), //handle DB nulls
-                           Price = r.Field<decimal>("Price")
+                           Price = r.Field<decimal>("Price"),
+                           IsDiscontinued = Convert.ToBoolean(r["IsDiscontinued"]),
                        };
             };
 
@@ -179,6 +181,7 @@ namespace Nile.Stores.Sql
                 cmd.Parameters.AddWithValue("@description", newItem.Description);
                 cmd.Parameters.AddWithValue("@price", newItem.Price);
                 cmd.Parameters.AddWithValue("@id", newItem.Id);
+                cmd.Parameters.AddWithValue("@isdiscontinued", newItem.IsDiscontinued);
 
                 //No results
                 cmd.ExecuteNonQuery();
